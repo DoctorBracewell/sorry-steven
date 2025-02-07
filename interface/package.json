@@ -1,20 +1,19 @@
 {
-	"name": "sorry-steven",
-	"version": "1.0.0",
-	"type": "module",
-	"scripts": {
-		"dev": "vite",
-		"build": "tsc && vite build",
-		"preview": "vite preview"
-	},
-	"devDependencies": {
-		"typescript": "^5.3.3",
-		"vite": "^4.1.0"
-	},
-	"dependencies": {
-		"pixi-actions": "^1.1.10",
-		"pixi-viewport": "^5.0.2",
-		"pixi.js": "^7.4.0",
-		"tweedle.js": "^2.0.1"
-	}
+  "name": "sorry-steven",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "~5.7.2",
+    "vite": "^6.1.0"
+  },
+  "dependencies": {
+    "@types/p5": "^1.7.6",
+    "p5": "^1.11.3"
+  }
 }
