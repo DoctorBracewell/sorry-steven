@@ -1,10 +1,16 @@
 from flask import Flask, request, abort
 from flask_cors import CORS
+import serial
 
 app = Flask(__name__)
+ser = serial.Serial("/dev/tty.usbmodem2101", 115200)
 
 # CORS settings - allow any port on same origin
 CORS(app, supports_credentials=True)
+
+while True:
+    if ser.in_waiting > 0:
+        print(ser.readline())
 
 
 def custom_cors():
