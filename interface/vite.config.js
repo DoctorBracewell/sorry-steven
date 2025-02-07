@@ -1,14 +1,10 @@
-import { defineConfig } from 'vite';
+import { defineConfig } from "vite";
+import inject from "@rollup/plugin-inject";
 
 export default defineConfig({
-  optimizeDeps: {
-    include: [
-      'p5',
-      'p5.sound'
+    plugins: [
+        inject({
+            p5: "p5",
+        }),
     ],
-    exclude: [
-      // Add any dependencies that should not be pre-bundled
-    ]
-  },
-  // Additional configurations (if needed)
 });
