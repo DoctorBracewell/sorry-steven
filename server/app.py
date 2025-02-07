@@ -8,6 +8,10 @@ ser = serial.Serial("/dev/tty.usbmodem2101", 115200)
 # CORS settings - allow any port on same origin
 CORS(app, supports_credentials=True)
 
+while True:
+    if ser.in_waiting > 0:
+        print(ser.readline())
+
 
 def custom_cors():
     origin = request.headers.get("Origin")
