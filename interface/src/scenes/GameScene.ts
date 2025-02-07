@@ -9,18 +9,29 @@ export class GameScene implements Scene {
   constructor(p: p5, sceneManager: SceneManager) {
     this.p = p;
     this.SM = sceneManager;
-    SceneEffects.startShake(0); 
   }
 
   setup(): void {
+    SceneEffects.setShake(0);
+  }
+
+  draw(): void {
+
     this.p.background(0);
+
+    this.p.push();
+    SceneEffects.applyShake(this.p);
+
+    this.p.fill(255);
+    this.p.ellipse(this.p.width / 2, this.p.height / 2, 100, 100);
+
     this.p.fill(255);
     this.p.textAlign(this.p.CENTER, this.p.CENTER);
     this.p.textSize(32);
     this.p.text('Game Scene. Click to return to Intro.', this.p.width / 2, this.p.height / 2);
-  }
 
-  draw(): void {}
+    this.p.pop();
+  }
 
   mousePressed(): void {
     console.log('Switching to Intro Scene.');
@@ -29,6 +40,6 @@ export class GameScene implements Scene {
 
   keyPressed(): void {
     console.log("SHAKE");
-    SceneEffects.startShake(20); 
+    SceneEffects.setShake(40);
   }
 }
