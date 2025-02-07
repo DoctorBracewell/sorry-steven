@@ -1,6 +1,8 @@
 import p5 from "p5";
 import { SceneManager, Scene } from "../SceneManager";
 import { SceneEffects } from "../SceneEffects";
+import { SensoryOut } from "../api/SensoryOut";
+
 
 export class GameScene implements Scene {
   private p: p5;
@@ -39,7 +41,7 @@ export class GameScene implements Scene {
   }
 
   keyPressed(): void {
-    console.log("SHAKE");
-    SceneEffects.setShake(40);
+    const SO = new SensoryOut();
+    SO.playSound();
   }
 }
