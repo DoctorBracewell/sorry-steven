@@ -78,14 +78,20 @@ export class GameScene implements Scene {
         }
     }
 
+    show_result(success: boolean | null) {
+        if (success == null) return;
+        if (!success) {
+            SceneEffects.setShake(30);
+        }
+    }
+
     mousePressed(): void {
-        SceneEffects.setShake(30);
 
         // draw buttons at scaled size if pressed
         this.colour_buttons.forEach((btn) => {
             if (btn.mouseOverButton()) {
                 btn.draw(true);
-                this.manager.send_input(btn.getColour());
+                this.show_result(this.manager.send_input(btn.getColour()));
             }
         });
 
@@ -96,7 +102,7 @@ export class GameScene implements Scene {
                     this.sound_input[i] = j;
                     btn.setColour(Colours.Green);
                     if (!this.sound_input.some((num) => num == -1)) {
-                        this.manager.send_input(this.sound_input);
+                        this.show_result(this.manager.send_input(this.sound_input));
                         this.sound_input = this.sound_input.fill(-1)
                     }
                 }

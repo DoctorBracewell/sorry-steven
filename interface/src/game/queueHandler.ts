@@ -50,8 +50,14 @@ export class QueueHandler {
 
     private addNewSounds() {
         const sounds: number[] = [];
+
+        const indexes = shuffleArray([...Array(GameState.soundTypeCount).keys()]);
+
         for (let i = 0; i < GameState.soundCounts; i++) {
-            sounds.push(Math.floor(Math.random() * (GameState.soundTypeCount + 1)));
+            sounds.push(Math.floor(Math.random() * (GameState.soundTypeCount)));
+        }
+        for (let i = 0; i < indexes.length; i++) {
+            sounds[indexes[i]] = i;
         }
 
         soundManager.playNotes(sounds, GameState.bpm);
