@@ -3,6 +3,7 @@ import { SERVER_URL } from "../constants";
 import { ColourFlashManager } from "../sight/ColourFlashManager";
 import { soundManager } from "../sound/SoundManager";
 import { Colours, GameState } from "./gameState";
+import { checkVibe } from "./vibrationChecker";
 
 export enum THEENUM {
     Sound,
@@ -104,6 +105,11 @@ export class QueueHandler {
     }
 
     public sendInput(input: any): boolean {
+
+        if (this.queue.length == 0) {
+            return false;
+        }
+
         const [curr_type, curr_seq] = this.queue[0];
 
         switch (curr_type) {
@@ -116,27 +122,29 @@ export class QueueHandler {
                 ) {
                     this.popQueue();
                     return true;
+                } else {
+                    this.queue.shift();
+                    return false;
                 }
-                break;
             case THEENUM.Sound:
                 if (
-                    (input == "a" && curr_seq[0] == 0) ||
-                    (input == "s" && curr_seq[0] == 1) ||
-                    (input == "d" && curr_seq[0] == 2) ||
-                    (input == "f" && curr_seq[0] == 3)
+                    input == this.queue[0][1]
                 ) {
-                    this.popQueue();
+                    this.queue.shift();
                     return true;
+                } else {
+                    this.queue.shift();
+                    return false;
                 }
-                break;
             case THEENUM.Vibrations:
                 if (input == " ") {
                     this.userBeats.push(Date.now() / 1000);
                     const beatsNeeded = this.queue[0][1].reduce((acc, curr) => acc + curr, 0);
                     if (this.userBeats.length == beatsNeeded) {
-                        // Check if correct
 
+                        const success = checkVibe(this.userBeats, this.queue[0][1]);
                         this.userBeats = [];
+                        return success;
                     } // Can't lose multiple lives in less than a second (i-frames)
                     return true;
                 }
@@ -144,7 +152,6 @@ export class QueueHandler {
             default:
                 break;
         }
-
         return false;
     }
 
