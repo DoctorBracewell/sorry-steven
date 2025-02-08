@@ -1,9 +1,6 @@
 
-
 export function checkVibe(userBeats: number[], beats: number[]) {
 
-    const userSpaces = userBeats.slice(1).map((beat, index) => beat - userBeats[index]);
-    
     let realSpaces: number[] = [];
     let curr_space = 1;
     beats.slice(1).forEach(beat => {
@@ -15,7 +12,24 @@ export function checkVibe(userBeats: number[], beats: number[]) {
         }
     });
 
-    
+    const userSpaces = userBeats.slice(1).map((beat, index) => beat - userBeats[index]);
+    let min_score = 999999999;
+    for (let i = 0; i < userSpaces.length; i++) {
 
+        const initialUserSpace = userBeats[i];
+        const relative = userSpaces.map(space => space / initialUserSpace * realSpaces[i]);
+
+        const score = Array(userSpaces.length)
+            .fill(0)
+            .map((_, index) => Math.abs(relative[index] - realSpaces[index]))
+            .reduce((acc, diff) => acc + diff, 0);
+        
+        if (score < min_score) {
+            min_score = score;
+        }
+
+    }
+
+    return min_score < 0.5;
 
 }
