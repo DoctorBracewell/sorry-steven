@@ -6,9 +6,10 @@ import * as p5s from "@fal-works/p5-scaler";
 import "./style.css";
 
 let sceneManager: SceneManager;
-const scaler = p5s.variableRatio({
-    parent: document.getElementById("canvas")!,
-    height: 0,
+const scaler = p5s.fixedRatio({
+    width: 1280,
+    height: 720,
+    parent: "#canvas",
 });
 
 const sketch = (p: p5) => {
@@ -51,4 +52,4 @@ const sketch = (p: p5) => {
     };
 };
 
-new p5(sketch);
+new p5(sketch, document.getElementById("canvas")!);
