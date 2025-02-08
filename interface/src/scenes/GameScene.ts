@@ -16,17 +16,26 @@ export class GameScene implements Scene {
         this.SM = sceneManager;
     }
 
-  setup(): void {
-    // create buttons
-    let index = 0;
-    for (const c in Colours) {
-      this.buttons.push(
-        new Button(this.p, 200 + (index * 100), 100, 80, 80, 10, Colours[c as keyof typeof Colours], true));
-      console.log("button: " + c);
-      index++;
+    setup(): void {
+        // create buttons
+        let index = 0;
+        for (const c in Colours) {
+            this.buttons.push(
+                new Button(
+                    this.p,
+                    200 + index * 100,
+                    100,
+                    80,
+                    80,
+                    10,
+                    Colours[c as keyof typeof Colours],
+                    true
+                )
+            );
+            console.log("button: " + c);
+            index++;
+        }
     }
-
-  }
 
     draw(): void {
         this.p.background("GRAY");
@@ -34,6 +43,12 @@ export class GameScene implements Scene {
 
         // draw buttons at base size
         this.buttons.forEach((btn) => btn.draw(false));
+
+        if (this.buttons.some((b) => b.hovered)) {
+            this.p.cursor("pointer");
+        } else {
+            this.p.cursor("default");
+        }
     }
 
     mousePressed(): void {

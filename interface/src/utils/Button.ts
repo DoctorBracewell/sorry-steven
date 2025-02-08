@@ -1,10 +1,9 @@
 import p5 from "p5";
-import { Colours } from "../game/gameState"
-
+import { Colours } from "../game/gameState";
 
 export class Button {
     private p: p5;
-    
+
     private x: number;
     private y: number;
     private w: number;
@@ -21,8 +20,18 @@ export class Button {
 
     private pressTime;
     private pressInProgress;
+    public hovered: boolean;
 
-    constructor(p: p5, x: number, y: number, w: number, h: number, r: number, colour: Colours, hasBorder: boolean) {
+    constructor(
+        p: p5,
+        x: number,
+        y: number,
+        w: number,
+        h: number,
+        r: number,
+        colour: Colours,
+        hasBorder: boolean
+    ) {
         this.p = p;
 
         this.x = x;
@@ -33,21 +42,22 @@ export class Button {
         this.scaledW = this.w * 1.2;
         this.scaledH = this.h * 1.2;
 
-        this.scaledX = this.x - ((this.scaledW - this.w) / 2);
-        this.scaledY = this.y - ((this.scaledH - this.h) / 2);
+        this.scaledX = this.x - (this.scaledW - this.w) / 2;
+        this.scaledY = this.y - (this.scaledH - this.h) / 2;
 
         this.r = r;
         this.colour = colour;
-        this.hasBorder = hasBorder
+        this.hasBorder = hasBorder;
 
         this.pressTime = 0;
         this.pressInProgress = false;
+        this.hovered = false;
     }
 
     applyBorderLogic(pressed: boolean) {
         if (pressed) {
             this.pressInProgress = true;
-            this.pressTime = this.p.millis()
+            this.pressTime = this.p.millis();
         }
 
         this.p.stroke("BLACK");
@@ -56,10 +66,9 @@ export class Button {
             if (this.p.millis() - this.pressTime < 300) {
                 this.p.stroke("WHITE");
             } else {
-            this.pressInProgress = false;
+                this.pressInProgress = false;
             }
-        }
-        else {
+        } else {
             this.p.stroke("BLACK");
         }
 
@@ -68,13 +77,14 @@ export class Button {
     }
 
     draw(pressed: boolean) {
+        this.hovered = this.mouseOverButton();
 
         if (this.hasBorder) {
             this.applyBorderLogic(pressed);
-        }        
+        }
 
-        if ((this.mouseOverButton() && !(pressed))) {
-            this.p.rect(this.scaledX, this.scaledY, this.scaledW, this.scaledH, this.r); 
+        if (this.mouseOverButton() && !pressed) {
+            this.p.rect(this.scaledX, this.scaledY, this.scaledW, this.scaledH, this.r);
         } else {
             this.p.rect(this.x, this.y, this.w, this.h, 10);
         }
@@ -82,11 +92,15 @@ export class Button {
 
     public mouseOverButton(): boolean {
         // TODO : make it recognise mouse over scaled button
-        return this.p.mouseX > this.x && this.p.mouseX < this.x + this.w && this.p.mouseY > this.y && this.p.mouseY < this.y + this.h;
+        return (
+            this.p.mouseX > this.x &&
+            this.p.mouseX < this.x + this.w &&
+            this.p.mouseY > this.y &&
+            this.p.mouseY < this.y + this.h
+        );
     }
 
     public getColour() {
         return this.colour;
     }
-
 }
