@@ -15,8 +15,15 @@ export class CutScene implements Scene {
     }
 
     preload(): void {
-        const imgFiles = (window as any).cutsceneImages || [];
-        this.images = imgFiles.sort().map((file: string) => this.p.loadImage(file));
+        console.log("BARRY");
+        const imagePaths = [
+            "/cutscenes/crim.jpg",
+            "/cutscenes/girraffe.jpg",
+            "/cutscenes/jam.jpg",
+            "/cutscenes/waste.jpg"
+        ];
+      
+        this.images = imagePaths.map((path) => this.p.loadImage(path));
     }
 
     setup(): void {

@@ -12,7 +12,8 @@ let sceneManager: SceneManager;
 const sketch = (p: p5) => {
 
   p.preload = () => {
-    sceneManager.preload();
+    // console.log("BOB");
+    // sceneManager.preload();
   }
 
   p.setup = () => {
@@ -21,7 +22,9 @@ const sketch = (p: p5) => {
     sceneManager.addScene('intro', new IntroScene(p, sceneManager));
     sceneManager.addScene('game', new GameScene(p, sceneManager));
     sceneManager.addScene('cutscene', new CutScene(p, sceneManager));
-    sceneManager.setScene('intro');
+    sceneManager.setScene('cutscene');
+    // console.log("AAA")
+    // sceneManager.preload();
   };
 
   p.draw = () => {
