@@ -43,6 +43,11 @@ export class GameScene implements Scene {
     draw(): void {
         this.p.background(255);
 
+        this.p.push();
+        SceneEffects.applyColour(this.p);
+        SceneEffects.applyShake(this.p);
+
+
         // draw buttons at base size
         this.colour_buttons.forEach((btn) => btn.draw(false));
         this.sound_buttons.forEach((btn) => btn.draw(false));
@@ -56,8 +61,6 @@ export class GameScene implements Scene {
             this.p.cursor("default");
         }
 
-        SceneEffects.applyColour(this.p);
-
         this.manager.update();
 
         this.p.pop();
@@ -68,16 +71,7 @@ export class GameScene implements Scene {
             for (let j = 0; j < GameState.soundTypeCount; j++) {
                 this.sound_buttons.push(
                     new Button(
-                        this.p,
-                        100 + i * 50,
-                        400 + 40 * j,
-                        30,
-                        30,
-                        0,
-                        Colours.Red,
-                        true,
-                        false,
-                        [i, j]
+                        this.p, 100 + i * 50, 400 + 40 * j, 30, 30, 0, Colours.Red, true, false, [i, j]
                     )
                 );
             }
@@ -85,7 +79,7 @@ export class GameScene implements Scene {
     }
 
     mousePressed(): void {
-        SceneEffects.setShake(100);
+        SceneEffects.setShake(30);
 
         // draw buttons at scaled size if pressed
         this.colour_buttons.forEach((btn) => {
@@ -103,6 +97,7 @@ export class GameScene implements Scene {
                     btn.setColour(Colours.Green);
                     if (!this.sound_input.some((num) => num == -1)) {
                         this.manager.send_input(this.sound_input);
+                        this.sound_input = this.sound_input.fill(-1)
                     }
                 }
             }

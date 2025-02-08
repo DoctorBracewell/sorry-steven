@@ -39,7 +39,7 @@ const sketch = (p: p5) => {
             new CutScene(p, sceneManager, "/cutscenes/Cutscene_3.png", "intro")
         );
 
-        sceneManager.setScene("cutscene1");
+        sceneManager.setScene("game");
     };
 
     p.draw = () => {

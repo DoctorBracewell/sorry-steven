@@ -32,8 +32,8 @@ export class SceneEffects {
             p.translate(shakeX, shakeY);
 
             // Reduce shake over time
-            this.shakeAmount *= 0.98; // Lower factor = slower (faster?) decay
-            if (this.shakeAmount < 0.5) {
+            this.shakeAmount *= 0.6; // Lower factor = slower (faster?) decay
+            if (this.shakeAmount < 10) {
                 this.shakeAmount = 0;
             }
         }
