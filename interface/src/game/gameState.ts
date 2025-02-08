@@ -15,6 +15,9 @@ export class GameState {
     public static soundCounts: number = 4;
     public static coloursCount: number = 4;
 
+    public static pause: boolean = false;
+
+
 
     public static setBPM(t: number) {
 
