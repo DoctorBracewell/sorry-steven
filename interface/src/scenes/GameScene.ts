@@ -9,13 +9,16 @@ export class GameScene implements Scene {
   private p: p5;
   private SM: SceneManager;
 
+  private colours = ["red", "green", "blue", "yellow"];
+  private clickOrder: string[] = [];
+
   constructor(p: p5, sceneManager: SceneManager) {
     this.p = p;
     this.SM = sceneManager;
   }
 
   setup(): void {
-    SceneEffects.setShake(0);
+    // TODO : things
   }
 
   draw(): void {
@@ -23,22 +26,19 @@ export class GameScene implements Scene {
     this.p.background(0);
 
     this.p.push();
-    SceneEffects.applyShake(this.p);
-
-    this.p.fill(255);
-    this.p.ellipse(this.p.width / 2, this.p.height / 2, 100, 100);
-
-    this.p.fill(255);
-    this.p.textAlign(this.p.CENTER, this.p.CENTER);
-    this.p.textSize(32);
-    this.p.text('Game Scene. Click to return to Intro.', this.p.width / 2, this.p.height / 2);
-
-    this.p.pop();
+    this.colours.forEach((colour, index) => {
+      this.p.fill(colour);
+      this.p.rect(50 + index * 100, 150, 80, 80);
+    });
   }
 
   mousePressed(): void {
-    console.log('Switching to Intro Scene.');
-    this.SM.setScene('intro');
+    for (let i = 0; i < this.colours.length; i++) {
+      if (this.p.mouseX > 50 + i * 100 && this.p.mouseX < 130 + i * 100 && this.p.mouseY > 150 && this.p.mouseY < 230) {
+        this.clickOrder.push(this.colours[i]);
+        console.log("Click Order:", this.clickOrder.join(" → "));
+      }
+    }
   }
 
   keyPressed(): void {
