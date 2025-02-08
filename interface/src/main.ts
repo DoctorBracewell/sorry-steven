@@ -28,7 +28,7 @@ const sketch = (p: p5) => {
 
         sceneManager.addScene(
             "cutscene1",
-            new CutScene(p, sceneManager, "/cutscenes/crim.jpg", "cutscene2")
+            new CutScene(p, sceneManager, "/cutscenes/Cutscene_1.png", "cutscene2")
         );
         sceneManager.addScene(
             "cutscene2",
@@ -36,10 +36,10 @@ const sketch = (p: p5) => {
         );
         sceneManager.addScene(
             "cutscene3",
-            new CutScene(p, sceneManager, "/cutscenes/waste.jpg", "intro")
+            new CutScene(p, sceneManager, "/cutscenes/Cutscene_3.png", "intro")
         );
 
-        sceneManager.setScene("game");
+        sceneManager.setScene("cutscene1");
     };
 
     p.draw = () => {
