@@ -2,13 +2,8 @@ import { SERVER_URL } from "../constants";
 import { Sound } from "../Sound";
 import {
     Colours,
-    bpm,
-    soundCounts,
-    soundTypeCount,
-    coloursCount,
-    onBeatCount,
-    beatCount,
-} from "../config";
+    GameState
+} from "../gameState";
 
 enum THEENUM {
     Sound,
@@ -51,27 +46,27 @@ export class Game {
 
     private static addNewSounds() {
         const sounds: number[] = [];
-        for (let i = 0; i < soundCounts; i++) {
-            sounds.push(Math.floor(Math.random() * (soundTypeCount + 1)));
+        for (let i = 0; i < GameState.soundCounts; i++) {
+            sounds.push(Math.floor(Math.random() * (GameState.soundTypeCount + 1)));
         }
 
         let media_player = new Sound();
-        media_player.playSound(sounds, bpm);
+        media_player.playSound(sounds, GameState.bpm);
 
         this.queue.push([THEENUM.Sound, sounds]);
     }
 
     public static addNewVibration() {
-        let beats = Array(beatCount).fill(0);
+        let beats = Array(GameState.beatCount).fill(0);
         beats[0] = 1;
 
         const shuffled = shuffleArray([1, 2, 3, 4, 5, 6, 7]);
-        const on_beats = shuffled.slice(0, onBeatCount - 1);
+        const on_beats = shuffled.slice(0, GameState.onBeatCount - 1);
         on_beats.forEach((on_beat) => (beats[on_beat] = 1));
 
         const payload = {
             sequence: beats,
-            bpm: bpm,
+            bpm: GameState.bpm,
         };
 
         fetch(SERVER_URL, {
@@ -90,7 +85,7 @@ export class Game {
 
         const colours: string[] = [];
 
-        for (let i = 0; i < coloursCount; i++) {
+        for (let i = 0; i < GameState.coloursCount; i++) {
             const coulor = possibleColours[Math.floor(Math.random() * possibleColours.length)];
             colours.push(coulor);
         }

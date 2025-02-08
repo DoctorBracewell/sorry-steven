@@ -4,7 +4,7 @@ import { SceneEffects } from "../SceneEffects";
 import { Sound } from "../Sound";
 import { Game } from "../game";
 import { Button } from "../utils/Button"
-import { Colours} from "../config"
+import { Colours} from "../gameState"
 
 
 
