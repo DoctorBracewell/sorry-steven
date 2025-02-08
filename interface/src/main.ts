@@ -25,7 +25,7 @@ const sketch = (p: p5) => {
     // sceneManager.addScene('cutscene1', new CutScene(p, sceneManager, ));
 
 
-    sceneManager.setScene('intrp');
+    sceneManager.setScene('intro');
   };
 
   p.draw = () => {
