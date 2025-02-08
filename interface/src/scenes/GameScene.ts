@@ -22,14 +22,7 @@ export class GameScene implements Scene {
         for (const c in Colours) {
             this.buttons.push(
                 new Button(
-                    this.p,
-                    200 + index * 100,
-                    100,
-                    80,
-                    80,
-                    10,
-                    Colours[c as keyof typeof Colours],
-                    true
+                  this.p, 200 + index * 100, 100, 80, 80, 10, Colours[c as keyof typeof Colours], true
                 )
             );
             console.log("button: " + c);
