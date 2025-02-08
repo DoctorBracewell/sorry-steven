@@ -5,12 +5,12 @@ export enum Colours {
     Green = "GREEN",
 }
 
-export let bpm: number = 135;
+export const bpm: number = 135;
 
-export let onBeatCount = 4;
-export let beatCount = 8;
+export const onBeatCount = 4;
+export const beatCount = 8;
 
-export let soundTypeCount = 2;
-export let soundCounts = 4;
+export const soundTypeCount = 2;
+export const soundCounts = 4;
 
-export let coloursCount = 4;
+export const coloursCount = 4;

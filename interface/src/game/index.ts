@@ -1,5 +1,5 @@
 import { SERVER_URL } from "../constants";
-import { Sound } from "../Sound";
+import { Sound } from "../sound/Sound";
 import {
     Colours,
     bpm,
