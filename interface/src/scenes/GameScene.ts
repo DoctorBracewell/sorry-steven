@@ -1,7 +1,7 @@
 import p5 from "p5";
 import { SceneManager, Scene } from "../SceneManager";
 import { SceneEffects } from "../SceneEffects";
-import { SensoryOut } from "../api/SensoryOut";
+import { Sound } from "../Sound";
 import { Game } from "../game";
 
 
@@ -44,7 +44,7 @@ export class GameScene implements Scene {
   keyPressed(): void {
     Game.addNewVibration()
 
-    const SO = new SensoryOut();
-    SO.playSound([0, 1, 2, 3, 2, 1], 120);
+    const testSound = new Sound();
+    testSound.playSound([0, 1, 2, 3, 2, 1], 120);
   }
 }

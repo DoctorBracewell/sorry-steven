@@ -1,7 +1,7 @@
 import p5 from "p5";
 import "p5/lib/addons/p5.sound";
 
-export class SensoryOut {
+export class Sound {
     private freqMapping: Record<number, number>  = {
         0: 261.63, // C4
         1: 329.63, // E4
