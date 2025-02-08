@@ -43,5 +43,8 @@ export class GameScene implements Scene {
 
   keyPressed(): void {
     Game.addNewVibration()
+
+    const SO = new SensoryOut();
+    SO.playSound([0, 1, 2, 3, 2, 1], 120);
   }
 }

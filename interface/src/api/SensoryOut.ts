@@ -2,11 +2,14 @@ import p5 from "p5";
 import "p5/lib/addons/p5.sound";
 
 export class SensoryOut {
-    private highFreq = 880; // high frequency (A5)
-    private lowFreq = 440; // low frequency (A4)
+    private freqMapping: Record<number, number>  = {
+        0: 261.63, // C4
+        1: 329.63, // E4
+        2: 392.00, // G4
+        3: 523.25  // C5
+    };
 
     private osc: p5.Oscillator;
-
 
     constructor(){
         this.osc = new p5.Oscillator();
@@ -14,7 +17,7 @@ export class SensoryOut {
         this.osc.amp(0.5);
     }
 
-    playSound(sequence: (0 | 1)[], bpm: number) {
+    playSound(sequence: (0 | 1 | 2 | 3)[], bpm: number) {
 
         // convert bpm to ms per beat
         const duration = (60 / bpm) * 1000;
@@ -28,7 +31,7 @@ export class SensoryOut {
                 return;
             }
 
-            this.osc.freq(sequence[index] === 1 ? this.highFreq : this.lowFreq);
+            this.osc.freq(this.freqMapping[sequence[index]]);
             this.osc.start()
 
             setTimeout(() => {
