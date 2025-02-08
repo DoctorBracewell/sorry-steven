@@ -144,7 +144,6 @@ export class QueueHandler {
             default:
                 break;
         }
-
         return false;
     }
 

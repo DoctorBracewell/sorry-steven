@@ -85,10 +85,13 @@ export class GameScene implements Scene {
         this.sound_buttons.forEach(btn => {
             if (btn.mouseOverButton()) {
                 const [i, j] = btn.data;
-                console.log(this.sound_input[i])
+
                 if (this.sound_input[i] == -1) {
                     this.sound_input[i] = j;
                     btn.setColour(Colours.Green);
+                    if (!this.sound_input.some(num => num == -1)) {
+                        this.manager.send_input(this.sound_input);
+                    }
                 }
             }
         })
