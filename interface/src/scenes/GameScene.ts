@@ -2,9 +2,8 @@ import p5 from "p5";
 import { SceneManager, Scene } from "../SceneManager";
 import { SceneEffects } from "../SceneEffects";
 import { Sound } from "../Sound";
-import { Game } from "../game";
 import { Button } from "../utils/Button"
-import { Colours} from "../gameState"
+import { Colours} from "../game/gameState"
 
 
 
@@ -53,7 +52,6 @@ export class GameScene implements Scene {
   }
 
   keyPressed(): void {
-    Game.addNewVibration()
 
     const testSound = new Sound();
     testSound.playSound([0, 1, 2, 3, 2, 1, 0], 90);
