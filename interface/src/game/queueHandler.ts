@@ -100,7 +100,7 @@ export class QueueHandler {
         this.queue.push([THEENUM.Colours, colours]);
     }
 
-    public sendInput(input: any): boolean {
+    public sendInput(input: any): boolean | null {
 
         if (this.queue.length == 0) {
             return false;
@@ -116,8 +116,8 @@ export class QueueHandler {
                     (input == Colours.Green && curr_seq[0] == Colours.Green) ||
                     (input == Colours.Pink && curr_seq[0] == Colours.Pink)
                 ) {
-                    this.popQueue();
-                    return true;
+                    const finalElem = this.popQueue();
+                    if (finalElem) return true;
                 } else {
                     this.queue.shift();
                     return false;
@@ -142,19 +142,20 @@ export class QueueHandler {
                         this.userBeats = [];
                         return success;
                     } // Can't lose multiple lives in less than a second (i-frames)
-                    return true;
                 }
                 break;
             default:
                 break;
         }
-        return false;
+        return null;
     }
 
-    private popQueue() {
+    private popQueue(): boolean {
         this.queue[0][1].shift();
         if (this.queue[0][1].length == 0) {
             this.queue.shift();
+            return true;
         }
+        return false;
     }
 }

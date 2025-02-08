@@ -55,4 +55,7 @@ const sketch = (p: p5) => {
     };
 };
 
-new p5(sketch, document.getElementById("canvas")!);
+document.querySelector("#start")!.addEventListener("click", () => {
+    (document.querySelector("#menu")! as HTMLDivElement).style.display = "none";
+    new p5(sketch, document.getElementById("canvas")!);
+});

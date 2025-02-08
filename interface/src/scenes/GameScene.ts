@@ -29,14 +29,20 @@ export class GameScene implements Scene {
         for (const c in Colours) {
             this.colour_buttons.push(
                 new Button(
-                  this.p, 200 + index * 100, 100, 80, 80, 10, Colours[c as keyof typeof Colours], true
+                    this.p,
+                    200 + index * 100,
+                    100,
+                    80,
+                    80,
+                    10,
+                    Colours[c as keyof typeof Colours],
+                    true
                 )
             );
             index++;
         }
 
         this.make_sound_buttons();
-
     }
 
     draw(): void {
@@ -47,8 +53,8 @@ export class GameScene implements Scene {
         this.sound_buttons.forEach((btn) => btn.draw(false));
 
         if (
-            this.colour_buttons.some((b) => b.hovered)
-            || this.sound_buttons.some((b) => b.hovered)
+            this.colour_buttons.some((b) => b.hovered) ||
+            this.sound_buttons.some((b) => b.hovered)
         ) {
             this.p.cursor("pointer");
         } else {
@@ -58,24 +64,34 @@ export class GameScene implements Scene {
         SceneEffects.applyColour(this.p);
 
         this.manager.update();
+
+        this.p.pop();
     }
 
     make_sound_buttons() {
-
-        for (let i=0; i<GameState.soundCounts; i++) {
-            for (let j=0; j<GameState.soundTypeCount; j++) {
-
+        for (let i = 0; i < GameState.soundCounts; i++) {
+            for (let j = 0; j < GameState.soundTypeCount; j++) {
                 this.sound_buttons.push(
                     new Button(
-                      this.p, 100 + i * 50, 400 + 40 * j, 30, 30, 0, Colours.Red, true, false, [i, j]
+                        this.p,
+                        100 + i * 50,
+                        400 + 40 * j,
+                        30,
+                        30,
+                        0,
+                        Colours.Red,
+                        true,
+                        false,
+                        [i, j]
                     )
                 );
-
             }
         }
     }
 
     mousePressed(): void {
+        SceneEffects.setShake(100);
+
         // draw buttons at scaled size if pressed
         this.colour_buttons.forEach((btn) => {
             if (btn.mouseOverButton()) {
@@ -84,21 +100,19 @@ export class GameScene implements Scene {
             }
         });
 
-        this.sound_buttons.forEach(btn => {
+        this.sound_buttons.forEach((btn) => {
             if (btn.mouseOverButton()) {
                 const [i, j] = btn.data;
-
                 if (this.sound_input[i] == -1) {
                     this.sound_input[i] = j;
                     btn.setColour(Colours.Green);
-                    if (!this.sound_input.some(num => num == -1)) {
+                    if (!this.sound_input.some((num) => num == -1)) {
                         this.manager.send_input(this.sound_input);
                     }
                 }
             }
-        })
+        });
     }
 
-    keyPressed(): void {
-    }
+    keyPressed(): void {}
 }
