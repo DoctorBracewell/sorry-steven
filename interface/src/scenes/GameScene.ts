@@ -4,6 +4,7 @@ import { Button } from "../utils/Button";
 import { Colours, GameState } from "../game/gameState";
 import { Manager } from "../game/manager";
 import { SceneEffects } from "../SceneEffects";
+import { soundManager } from "../sound/SoundManager";
 
 export class GameScene implements Scene {
     private p: p5;
@@ -82,6 +83,9 @@ export class GameScene implements Scene {
         if (success == null) return;
         if (!success) {
             SceneEffects.setShake(30);
+            soundManager.playSample("/feedback/nope.mp3");
+        } else {
+            soundManager.playSample("/feedback/yep.mp3");
         }
     }
 
@@ -104,6 +108,7 @@ export class GameScene implements Scene {
                     if (!this.sound_input.some((num) => num == -1)) {
                         this.show_result(this.manager.send_input(this.sound_input));
                         this.sound_input = this.sound_input.fill(-1)
+                        setInterval(() => this.sound_buttons.forEach(btn => btn.setColour(Colours.Red)), 200);
                     }
                 }
             }
