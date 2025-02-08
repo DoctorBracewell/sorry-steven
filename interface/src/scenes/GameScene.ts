@@ -4,6 +4,8 @@ import { SceneEffects } from "../SceneEffects";
 import { Sound } from "../Sound";
 import { Game } from "../game";
 import { Button } from "../utils/Button"
+import { Colours} from "../config"
+
 
 
 export class GameScene implements Scene {
@@ -21,22 +23,27 @@ export class GameScene implements Scene {
 
   setup(): void {
     // create buttons
+    let index = 0;
+    for (const c in Colours) {
+      this.buttons.push(new Button(this.p, 200 + (index * 100), 200, 50, Colours[c as keyof typeof Colours]));
+      console.log("button: " + c);
+      index++;
+    }
 
   }
 
   draw(): void {
-    // change all this stuff 
-
-    // this.p.background(0);
-
-    // this.p.push();
-    // this.colours.forEach((colour, index) => {
-    //   this.p.fill(colour);
-    //   this.p.rect(50 + index * 100, 150, 80, 80);
-    // });
+    this.buttons.forEach((btn) => btn.draw(false));
   }
 
   mousePressed(): void {
+
+    this.buttons.forEach((btn) => {
+      if (btn.mouseOverButton()) {
+        btn.draw(true);
+        console.log(btn.getColour());
+      }
+    })
 
     // change all this stuff
 
