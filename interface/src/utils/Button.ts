@@ -1,5 +1,5 @@
 import p5 from "p5";
-import { Colours} from "../config"
+import { Colours} from "../gameState"
 
 
 export class Button {
