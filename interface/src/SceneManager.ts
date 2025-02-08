@@ -1,6 +1,7 @@
 import p5 from 'p5';
 
 export interface Scene {
+  preload?(): void;
   setup(): void;
   draw(): void;
   keyPressed?(): void;
@@ -37,6 +38,12 @@ export class SceneManager {
         this.transitioning = false;
       });
     });
+  }
+
+  preload(): void {
+    if (this.currentScene?.preload) {
+      this.currentScene.preload();
+    }
   }
 
   update(): void {

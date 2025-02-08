@@ -4,16 +4,23 @@ import {
   IntroScene,
   GameScene
 } from './scenes';
+import { CutScene } from './scenes/CutScenes';
 
 
 let sceneManager: SceneManager;
 
 const sketch = (p: p5) => {
+
+  p.preload = () => {
+    sceneManager.preload();
+  }
+
   p.setup = () => {
     p.createCanvas(800, 600);
     sceneManager = new SceneManager(p);
     sceneManager.addScene('intro', new IntroScene(p, sceneManager));
     sceneManager.addScene('game', new GameScene(p, sceneManager));
+    sceneManager.addScene('cutscene', new CutScene(p, sceneManager));
     sceneManager.setScene('intro');
   };
 
