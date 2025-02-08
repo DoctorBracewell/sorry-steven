@@ -1,6 +1,7 @@
 import p5 from "p5";
 import { Colours } from "./game/gameState";
 import { CANVAS_WIDTH, CANVAS_HEIGHT, FPS } from "./constants";
+import { scaler } from "./main";
 
 const ColourRGBs: Record<Colours, [number, number, number]> = {
     [Colours.Red]: [255, 0, 0],
@@ -56,19 +57,15 @@ export class SceneEffects {
             return;
         }
 
-        for (let y = 0; y < CANVAS_HEIGHT; y++) {
+        for (let y = 0; y < scaler.getSize().physical.height; y++) {
             let alpha = p.map(
-                y,
-                0,
-                CANVAS_HEIGHT,
-                (this.colour_intensity / 100) * 50,
-                (this.colour_intensity / 100) * 200
+                y, 0, scaler.getSize().physical.height, (this.colour_intensity / 100) * 50, (this.colour_intensity / 100) * 200
             );
             let [r, g, b] = ColourRGBs[c];
 
             p.stroke(r, g, b, alpha);
             p.strokeWeight(2);
-            p.line(0, y, CANVAS_WIDTH, y);
+            p.line(0, y, scaler.getSize().physical.width, y);
         }
 
         this.colour_intensity *= m;
