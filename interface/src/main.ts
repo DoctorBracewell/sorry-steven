@@ -2,13 +2,22 @@ import p5 from "p5";
 import { SceneManager } from "./SceneManager";
 import { IntroScene, GameScene } from "./scenes";
 import { CutScene } from "./scenes/CutScenes";
+import * as p5s from "@fal-works/p5-scaler";
 import "./style.css";
 
 let sceneManager: SceneManager;
+const scaler = p5s.variableRatio({
+    parent: document.getElementById("canvas")!,
+    height: 0,
+});
 
 const sketch = (p: p5) => {
+    scaler.setP5Instance(p);
+
     p.setup = () => {
-        p.createCanvas(800, 600);
+        const canvas = scaler.createCanvas();
+        p5s.setParentElement(canvas, "#canvas");
+
         sceneManager = new SceneManager(p);
         sceneManager.addScene("intro", new IntroScene(p, sceneManager));
         sceneManager.addScene("game", new GameScene(p, sceneManager));
