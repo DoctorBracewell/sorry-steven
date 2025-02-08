@@ -2,8 +2,8 @@ export class SoundManager {
     private audioContext = new AudioContext();
     private static labelToNote: Record<number, string> = {
         0: "c3",
-        1: "e3",
-        2: "g3",
+        2: "e3",
+        1: "g3",
         3: "c4",
     };
 
