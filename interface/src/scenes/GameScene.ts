@@ -3,7 +3,7 @@ import { SceneManager, Scene } from "../SceneManager";
 import { Button } from "../utils/Button";
 import { Colours, GameState } from "../game/gameState";
 import { Manager } from "../game/manager";
-import { ColourFlashManager } from "../sight/ColourFlashManager";
+import { SceneEffects } from "../SceneEffects";
 
 export class GameScene implements Scene {
     private p: p5;
@@ -54,6 +54,8 @@ export class GameScene implements Scene {
         } else {
             this.p.cursor("default");
         }
+
+        SceneEffects.applyColour(this.p);
 
         this.manager.update();
     }

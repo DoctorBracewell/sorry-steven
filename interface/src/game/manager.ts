@@ -13,7 +13,7 @@ export class Manager {
     constructor(p: p5) {
         this.p = p;
         this.next_choice = this.get_next_choice_time();
-        this.qh = new QueueHandler(this.p);
+        this.qh = new QueueHandler();
     }
 
     update(): void {

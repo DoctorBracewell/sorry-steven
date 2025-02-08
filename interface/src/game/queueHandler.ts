@@ -1,9 +1,9 @@
 import p5 from "p5";
 import { SERVER_URL } from "../constants";
-import { ColourFlashManager } from "../sight/ColourFlashManager";
 import { soundManager } from "../sound/SoundManager";
 import { Colours, GameState } from "./gameState";
 import { checkVibe } from "./vibrationChecker";
+import { SceneEffects } from "../SceneEffects";
 
 export enum THEENUM {
     Sound,
@@ -26,12 +26,8 @@ export class QueueHandler {
 
     private userBeats: number[] = [];
 
-    private LGM: ColourFlashManager;
 
-    constructor(p: p5) {
-        this.LGM = new ColourFlashManager(p);
-
-    }
+    constructor() {}
 
     public sendNewChoice(): THEENUM {
         let possibleChoices = [THEENUM.Sound, THEENUM.Colours, THEENUM.Vibrations];
@@ -98,7 +94,8 @@ export class QueueHandler {
         }
 
         // Send colours
-        this.LGM.setGradients(colours, GameState.bpm);
+        SceneEffects.colourSequence = colours;
+        SceneEffects.bpm = GameState.bpm;
 
         this.queue.push([THEENUM.Colours, colours]);
     }
