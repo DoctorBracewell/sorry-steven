@@ -21,10 +21,11 @@ const sketch = (p: p5) => {
     sceneManager = new SceneManager(p);
     sceneManager.addScene('intro', new IntroScene(p, sceneManager));
     sceneManager.addScene('game', new GameScene(p, sceneManager));
-    sceneManager.addScene('cutscene', new CutScene(p, sceneManager));
-    sceneManager.setScene('cutscene');
-    // console.log("AAA")
-    // sceneManager.preload();
+
+    // sceneManager.addScene('cutscene1', new CutScene(p, sceneManager, ));
+
+
+    sceneManager.setScene('intrp');
   };
 
   p.draw = () => {
