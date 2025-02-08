@@ -4,6 +4,7 @@ import { SceneEffects } from "../SceneEffects";
 import { Button } from "../utils/Button";
 import { Colours } from "../game/gameState";
 import { Manager } from "../game/manager";
+import { ColourFlashManager } from "../sight/ColourFlashManager";
 
 export class GameScene implements Scene {
     private p: p5;
@@ -30,11 +31,12 @@ export class GameScene implements Scene {
             );
             index++;
         }
+
+
     }
 
     draw(): void {
-        this.p.background("GRAY");
-        this.p.push();
+        this.p.background(255);
 
         // draw buttons at base size
         this.buttons.forEach((btn) => btn.draw(false));
@@ -44,6 +46,8 @@ export class GameScene implements Scene {
         } else {
             this.p.cursor("default");
         }
+
+        
 
         this.manager.update();
     }
@@ -59,5 +63,6 @@ export class GameScene implements Scene {
         });
     }
 
-    keyPressed(): void {}
+    keyPressed(): void {
+    }
 }
