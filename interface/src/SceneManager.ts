@@ -3,6 +3,7 @@ import p5 from 'p5';
 export interface Scene {
   setup(): void;
   draw(): void;
+  preload?(): void;
   keyPressed?(): void;
   mousePressed?(): void;
 }
@@ -32,6 +33,9 @@ export class SceneManager {
     this.transitioning = true;
     this.fadeOut(() => {
       this.currentScene = scene;
+      if (this.currentScene?.preload) {
+        this.currentScene.preload();
+      }
       this.currentScene.setup();
       this.fadeIn(() => {
         this.transitioning = false;
