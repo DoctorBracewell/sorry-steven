@@ -26,6 +26,8 @@ export class Button {
 
     public hovered: boolean;
 
+    public data: any;
+
     constructor(
         p: p5,
         x: number,
@@ -35,7 +37,8 @@ export class Button {
         r: number,
         colour: Colours,
         hasBorder: boolean,
-        hasScale: boolean = true
+        hasScale: boolean = true,
+        data: any = null
     ) {
         this.p = p;
 
@@ -56,6 +59,8 @@ export class Button {
         this.hasScale = hasScale;
 
         this.hovered = false;
+
+        this.data = data;
     }
 
     applyBorderLogic(pressed: boolean) {
@@ -109,5 +114,9 @@ export class Button {
 
     public getColour() {
         return this.colour;
+    }
+
+    public setColour(colour: Colours) {
+        this.colour = colour;
     }
 }
