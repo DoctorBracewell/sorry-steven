@@ -1,9 +1,6 @@
 import { SERVER_URL } from "../constants";
-import { Sound } from "../Sound";
-import {
-    Colours,
-    GameState
-} from "./gameState";
+import { soundManager } from "../sound/SoundManager";
+import { Colours, GameState } from "./gameState";
 
 export enum THEENUM {
     Sound,
@@ -26,7 +23,7 @@ export class QueueHandler {
 
     private userBeats: number[] = [];
 
-    constructor() {};
+    constructor() {}
 
     public sendNewChoice(): THEENUM {
         let possibleChoices = [THEENUM.Sound, THEENUM.Colours, THEENUM.Vibrations];
@@ -54,8 +51,7 @@ export class QueueHandler {
             sounds.push(Math.floor(Math.random() * (GameState.soundTypeCount + 1)));
         }
 
-        let media_player = new Sound();
-        media_player.playSound(sounds, GameState.bpm);
+        soundManager.playNotes(sounds, GameState.bpm);
 
         this.queue.push([THEENUM.Sound, sounds]);
     }

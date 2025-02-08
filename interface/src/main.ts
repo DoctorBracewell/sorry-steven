@@ -2,7 +2,7 @@ import p5 from "p5";
 import { SceneManager } from "./SceneManager";
 import { IntroScene, GameScene } from "./scenes";
 import { CutScene } from "./scenes/CutScenes";
-import "style.css";
+import "./style.css";
 
 let sceneManager: SceneManager;
 
