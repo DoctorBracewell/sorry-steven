@@ -22,7 +22,7 @@ const sketch = (p: p5) => {
     sceneManager.addScene('cutscene3', new CutScene(p, sceneManager, '/cutscenes/waste.jpg', 'intro'));
 
 
-    sceneManager.setScene('cutscene1');
+    sceneManager.setScene('game');
   };
 
   p.draw = () => {
