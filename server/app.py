@@ -1,5 +1,6 @@
 from flask import Flask, request, abort
 from flask_cors import CORS
+from time import sleep
 import serial
 
 app = Flask(__name__)
@@ -35,8 +36,18 @@ def root():
     quaver_length = beat_length / 2
     vibration_length = quaver_length / 2
 
+    print(quaver_length)
+
+    print(sequence)
+
     for note in sequence:
-        print(note, vibration_length)
+        if note == 1:
+            ser.write("1".encode())
+            sleep(vibration_length)
+            ser.write("0".encode())
+            sleep(quaver_length - vibration_length)
+        else:
+            sleep(quaver_length)
 
     return "All good sexy boy :)", 200
 
