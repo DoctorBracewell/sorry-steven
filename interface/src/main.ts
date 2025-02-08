@@ -11,11 +11,6 @@ let sceneManager: SceneManager;
 
 const sketch = (p: p5) => {
 
-  p.preload = () => {
-    // console.log("BOB");
-    // sceneManager.preload();
-  }
-
   p.setup = () => {
     p.createCanvas(800, 600);
     sceneManager = new SceneManager(p);
