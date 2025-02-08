@@ -22,10 +22,12 @@ const sketch = (p: p5) => {
     sceneManager.addScene('intro', new IntroScene(p, sceneManager));
     sceneManager.addScene('game', new GameScene(p, sceneManager));
 
-    // sceneManager.addScene('cutscene1', new CutScene(p, sceneManager, ));
+    sceneManager.addScene('cutscene1', new CutScene(p, sceneManager, '/cutscenes/crim.jpg', 'cutscene2'));
+    sceneManager.addScene('cutscene2', new CutScene(p, sceneManager, '/cutscenes/jam.jpg', 'cutscene3'));
+    sceneManager.addScene('cutscene3', new CutScene(p, sceneManager, '/cutscenes/waste.jpg', 'intro'));
 
 
-    sceneManager.setScene('intro');
+    sceneManager.setScene('cutscene1');
   };
 
   p.draw = () => {
