@@ -1,8 +1,12 @@
 import p5 from 'p5';
+import { Colours } from './game/gameState';
 
 export class SceneEffects {
 
     private static shakeAmount = 0;
+
+    private static colour: Colours | null = null;
+    private static colour_intensity = 100;
 
     static pulse(p: p5, intensity: number, speed: number, baseSize: number): number {
         const pulse = baseSize + Math.sin(p.frameCount * speed) * intensity;
@@ -25,5 +29,9 @@ export class SceneEffects {
                 this.shakeAmount = 0;
             }
         }
+    }
+
+    static applyColour(p: p5): void {
+
     }
 }

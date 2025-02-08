@@ -55,8 +55,6 @@ export class GameScene implements Scene {
             this.p.cursor("default");
         }
 
-        
-
         this.manager.update();
     }
 
