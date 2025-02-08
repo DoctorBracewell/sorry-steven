@@ -7,7 +7,7 @@ import "./style.css";
 import { FPS } from "./constants";
 
 let sceneManager: SceneManager;
-const scaler = p5s.fixedRatio({
+export const scaler = p5s.fixedRatio({
     width: 1280,
     height: 720,
     parent: "#canvas",
