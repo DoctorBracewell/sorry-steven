@@ -3,17 +3,20 @@ import { SceneManager, Scene } from "../SceneManager";
 import { SceneEffects } from "../SceneEffects";
 import { Button } from "../utils/Button";
 import { Colours } from "../game/gameState";
+import { Manager } from "../game/manager";
 
 export class GameScene implements Scene {
     private p: p5;
     private SM: SceneManager;
 
-    //private colourOrder: Coulors[] = [];
+    private manager: Manager;
+
     private buttons: Button[] = [];
 
     constructor(p: p5, sceneManager: SceneManager) {
         this.p = p;
         this.SM = sceneManager;
+        this.manager = new Manager(p);
     }
 
     setup(): void {
@@ -22,17 +25,9 @@ export class GameScene implements Scene {
         for (const c in Colours) {
             this.buttons.push(
                 new Button(
-                    this.p,
-                    200 + index * 100,
-                    100,
-                    80,
-                    80,
-                    10,
-                    Colours[c as keyof typeof Colours],
-                    true
+                  this.p, 200 + index * 100, 100, 80, 80, 10, Colours[c as keyof typeof Colours], true
                 )
             );
-            console.log("button: " + c);
             index++;
         }
     }
@@ -49,6 +44,8 @@ export class GameScene implements Scene {
         } else {
             this.p.cursor("default");
         }
+
+        this.manager.update();
     }
 
     mousePressed(): void {
@@ -57,8 +54,7 @@ export class GameScene implements Scene {
         this.buttons.forEach((btn) => {
             if (btn.mouseOverButton()) {
                 btn.draw(true);
-                console.log(btn.getColour());
-                // TODO : send colour to game manager
+                this.manager.send_input(btn.getColour());
             }
         });
     }
