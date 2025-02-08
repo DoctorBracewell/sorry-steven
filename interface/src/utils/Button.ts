@@ -1,5 +1,6 @@
 import p5 from "p5";
 import { Colours } from "../game/gameState";
+import { CANVAS_WIDTH, CANVAS_HEIGHT } from "../constants";
 
 export class Button {
     private p: p5;
