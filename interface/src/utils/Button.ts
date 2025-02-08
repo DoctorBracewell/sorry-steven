@@ -34,9 +34,9 @@ export class Button {
         //this.p.fill((this.mouseOverButton() && !(pressed)) ? this.darkenColour() : this.colour);
         this.p.fill(this.colour);
         if ((this.mouseOverButton() && !(pressed))) {
-            this.p.rect(this.scaledX, this.scaledY, this.scaledSize, this.scaledSize); 
+            this.p.rect(this.scaledX, this.scaledY, this.scaledSize, this.scaledSize, 10); 
         } else {
-            this.p.rect(this.x, this.y, this.baseSize, this.baseSize);
+            this.p.rect(this.x, this.y, this.baseSize, this.baseSize, 10);
         }
 
     }

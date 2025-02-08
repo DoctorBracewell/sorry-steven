@@ -25,7 +25,7 @@ export class GameScene implements Scene {
     // create buttons
     let index = 0;
     for (const c in Colours) {
-      this.buttons.push(new Button(this.p, 200 + (index * 100), 200, 50, Colours[c as keyof typeof Colours]));
+      this.buttons.push(new Button(this.p, 200 + (index * 100), 100, 80, Colours[c as keyof typeof Colours]));
       console.log("button: " + c);
       index++;
     }
@@ -33,6 +33,9 @@ export class GameScene implements Scene {
   }
 
   draw(): void {
+    this.p.background(0);
+    this.p.push();
+
     this.buttons.forEach((btn) => btn.draw(false));
   }
 
