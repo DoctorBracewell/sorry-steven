@@ -89,13 +89,12 @@ export class QueueHandler {
     }
 
     private addNewColours() {
-        const possibleColours = Object.values(Colours);
-
-        const colours: string[] = [];
+        const possibleColours = Object.values(Colours) as Colours[];
+        const colours: Colours[] = [];
 
         for (let i = 0; i < GameState.coloursCount; i++) {
-            const coulor = possibleColours[Math.floor(Math.random() * possibleColours.length)];
-            colours.push(coulor);
+            const colour = possibleColours[Math.floor(Math.random() * possibleColours.length)];
+            colours.push(colour);
         }
 
         // Send colours

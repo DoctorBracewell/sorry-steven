@@ -1,5 +1,5 @@
 import p5 from "p5";
-import { Colours, GameState } from "./gameState";
+import { GameState } from "./gameState";
 import { QueueHandler, THEENUM } from "./queueHandler";
 
 export class Manager {
@@ -13,7 +13,7 @@ export class Manager {
     constructor(p: p5) {
         this.p = p;
         this.next_choice = this.get_next_choice_time();
-        this.qh = new QueueHandler();
+        this.qh = new QueueHandler(this.p);
     }
 
     update(): void {
