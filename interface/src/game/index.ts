@@ -1,4 +1,5 @@
 import { SERVER_URL } from "../constants";
+import { Sound } from "../Sound";
 
 
 enum Coulors {
@@ -23,11 +24,11 @@ function shuffleArray<T>(array: T[]): T[] {
 
 export class Game {
 
-    private static bpm: number = 60;
+    private static bpm: number = 160;
     
     private static queue = [];
 
-    private static previousChoice = null;
+    private static previousChoice: string = "";
 
     private static onBeatCount = 4;
     private static beatCount = 8;
@@ -35,9 +36,9 @@ export class Game {
     private static soundTypeCount = 2;
     private static soundCounts = 4
 
+    private static coulorsCount = 4;
+
     private static sendNewChoice(): void {
-
-
 
         let possibleChoices = ["sound", "coulor", "vibe"];
         const choices = possibleChoices.filter(choice => choice !== this.previousChoice);
@@ -47,10 +48,17 @@ export class Game {
         if (choice == "vibe") {
 
             this.addNewVibration();
+            this.previousChoice = "vibe";
 
         } else if (choice == "coulor") {
 
+            this.addNewCoulors();
+            this.previousChoice = "coulor";
+
         } else if (choice == "sound") {
+
+            this.addNewSounds();
+            this.previousChoice = "sound";
 
         }
 
@@ -58,19 +66,24 @@ export class Game {
 
     private static addNewSounds() {
 
-        
+        const sounds: number[] = [];
+        for (let i = 0; i < this.soundCounts; i++) {
+            sounds.push(Math.floor(Math.random() * (this.soundTypeCount + 1)));
+        }
+
+        let media_player = new Sound();
+        media_player.playSound(sounds, this.bpm);
 
     }
 
     public static addNewVibration() {
 
         let beats = Array(this.beatCount).fill(0);
+        beats[0] = 1;
 
-        const shuffled = shuffleArray([0, 1, 2, 3, 4, 5, 6, 7]);
-        const on_beats = shuffled.slice(0, this.onBeatCount);
+        const shuffled = shuffleArray([1, 2, 3, 4, 5, 6, 7]);
+        const on_beats = shuffled.slice(0, this.onBeatCount - 1);
         on_beats.forEach(on_beat => beats[on_beat] = 1);
-
-        console.log(shuffled);
 
         const payload = {
             sequence: beats,
@@ -80,7 +93,7 @@ export class Game {
         fetch(SERVER_URL, {
             method: "POST",
             headers: {
-              "Content-Type": "application/json" // Ensure the server knows you're sending JSON
+              "Content-Type": "application/json"
             },
             body: JSON.stringify(payload)
         })
@@ -89,14 +102,19 @@ export class Game {
 
     private static addNewCoulors() {
 
-        const values = Object.values(Coulors);
+        const possibleCoulors = Object.values(Coulors);
 
-        // for (let i = 0; i < n; i++) {
-        //     const coulor = values[Math.floor(Math.random() * values.length)];
-        //     this.queue.push(coulor);
-        // }
+        const coulors: string[] = [];
+        
+        for (let i = 0; i < this.coulorsCount; i++) {
+            const coulor = possibleCoulors[Math.floor(Math.random() * possibleCoulors.length)];
+            coulors.push(coulor);
+        }
+
+        // Send coulors
 
     }
 
+    public static sendInput(input: string) {}
 
 }

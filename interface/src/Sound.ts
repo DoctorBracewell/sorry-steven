@@ -17,7 +17,7 @@ export class Sound {
         this.osc.amp(0.5);
     }
 
-    public playSound(sequence: (0 | 1 | 2 | 3)[], bpm: number) {
+    public playSound(sequence: number[], bpm: number) {
 
         // convert bpm to ms per beat
         const duration = (60 / bpm) * 1000;
