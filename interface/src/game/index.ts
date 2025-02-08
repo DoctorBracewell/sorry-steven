@@ -8,23 +8,22 @@ enum Coulors {
     Green = "GREEN"
 }
 
-enum Sound {
-    Small = 0,
-    Medium = 1
-}
-
-enum Vibration {
-    Series = 0
-}
-
 enum THEENUM {
     Sound,
     Coulors
 }
 
+function shuffleArray<T>(array: T[]): T[] {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
 export class Game {
 
-    private static bpm: number = 100;
+    private static bpm: number = 60;
     
     private static queue = [];
 
@@ -33,41 +32,49 @@ export class Game {
     private static onBeatCount = 4;
     private static beatCount = 8;
 
+    private static soundTypeCount = 2;
+    private static soundCounts = 4
+
     private static sendNewChoice(): void {
 
-        const enumSet: Set<any> = new Set([Coulors, Sound, Vibration]);
-        if (this.previousChoice !== null) {
-            enumSet.delete(this.previousChoice);
-        }
 
-        const enumsArray = Array.from(enumSet);
-        const choice = enumsArray[Math.floor(Math.random() * enumsArray.length)];
 
-        if (choice == Vibration) {
+        let possibleChoices = ["sound", "coulor", "vibe"];
+        const choices = possibleChoices.filter(choice => choice !== this.previousChoice);
+        
+        const choice = choices[Math.floor(Math.random() * choices.length)];
+
+        if (choice == "vibe") {
 
             this.addNewVibration();
 
-        } else if (choice == Sound) {
+        } else if (choice == "coulor") {
 
-        } else if (choice == Coulors) {
+        } else if (choice == "sound") {
 
         }
 
     }
 
-    private static addNewSounds() {}
+    private static addNewSounds() {
+
+        
+
+    }
 
     public static addNewVibration() {
 
         let beats = Array(this.beatCount).fill(0);
 
-        const shuffled = [0, 1, 2, 3, 4, 5, 6, 7].sort(() => 0.5 - Math.random());
-        const on_beats = shuffled.slice(0, this.beatCount);
-        on_beats.forEach(on_beat => beats[on_beat] = 1)
+        const shuffled = shuffleArray([0, 1, 2, 3, 4, 5, 6, 7]);
+        const on_beats = shuffled.slice(0, this.onBeatCount);
+        on_beats.forEach(on_beat => beats[on_beat] = 1);
+
+        console.log(shuffled);
 
         const payload = {
-            sequence: JSON.stringify(on_beats),
-            bpm: this.bpm.toString(),
+            sequence: beats,
+            bpm: this.bpm,
         };
 
         fetch(SERVER_URL, {
