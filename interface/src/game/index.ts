@@ -57,7 +57,7 @@ export class Game {
 
     private static addNewSounds() {}
 
-    private static addNewVibration() {
+    public static addNewVibration() {
 
         let beats = Array(this.beatCount).fill(0);
 
