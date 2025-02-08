@@ -15,7 +15,6 @@ export class GameScene implements Scene {
   //private colourOrder: Coulors[] = [];
   private buttons: Button[] = []
 
-
   constructor(p: p5, sceneManager: SceneManager) {
     this.p = p;
     this.SM = sceneManager;
@@ -33,35 +32,30 @@ export class GameScene implements Scene {
   }
 
   draw(): void {
-    this.p.background(0);
+    this.p.background("GRAY");
     this.p.push();
 
+    // draw buttons at base size
     this.buttons.forEach((btn) => btn.draw(false));
   }
 
   mousePressed(): void {
 
+    // draw buttons at scaled size if pressed
+    //
     this.buttons.forEach((btn) => {
       if (btn.mouseOverButton()) {
         btn.draw(true);
         console.log(btn.getColour());
+        // TODO : send colour to game manager
       }
     })
-
-    // change all this stuff
-
-    // for (let i = 0; i < this.colours.length; i++) {
-    //   if (this.p.mouseX > 50 + i * 100 && this.p.mouseX < 130 + i * 100 && this.p.mouseY > 150 && this.p.mouseY < 230) {
-    //     this.clickOrder.push(this.colours[i]);
-    //     console.log("Click Order:", this.clickOrder.join(" → "));
-    //   }
-    // }
   }
 
   keyPressed(): void {
     Game.addNewVibration()
 
     const testSound = new Sound();
-    testSound.playSound([0, 1, 2, 3, 2, 1, 0], 200);
+    testSound.playSound([0, 1, 2, 3, 2, 1, 0], 90);
   }
 }
