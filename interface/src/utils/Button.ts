@@ -1,5 +1,6 @@
 import p5 from "p5";
 import { Colours } from "../game/gameState";
+import { CANVAS_WIDTH, CANVAS_HEIGHT } from "../constants";
 
 export class Button {
     private p: p5;
@@ -17,9 +18,13 @@ export class Button {
     private r: number; // corner radius
     private colour: Colours;
     private hasBorder: boolean;
+    private hasScale: boolean;
 
-    private pressTime;
-    private pressInProgress;
+    private pressTime = 0;
+    private pressInProgress = false;
+    private scaleTime = 0;
+    private scaleInProgress = false;
+
     public hovered: boolean;
 
     constructor(
@@ -30,7 +35,8 @@ export class Button {
         h: number,
         r: number,
         colour: Colours,
-        hasBorder: boolean
+        hasBorder: boolean,
+        hasScale: boolean = true
     ) {
         this.p = p;
 
@@ -39,8 +45,8 @@ export class Button {
         this.w = w;
         this.h = h;
 
-        this.scaledW = this.w * 1.2;
-        this.scaledH = this.h * 1.2;
+        this.scaledW = this.w * 1.1;
+        this.scaledH = this.h * 1.1;
 
         this.scaledX = this.x - (this.scaledW - this.w) / 2;
         this.scaledY = this.y - (this.scaledH - this.h) / 2;
@@ -48,9 +54,8 @@ export class Button {
         this.r = r;
         this.colour = colour;
         this.hasBorder = hasBorder;
+        this.hasScale = hasScale;
 
-        this.pressTime = 0;
-        this.pressInProgress = false;
         this.hovered = false;
     }
 
@@ -60,30 +65,33 @@ export class Button {
             this.pressTime = this.p.millis();
         }
 
-        this.p.stroke("BLACK");
-
         if (this.pressInProgress) {
-            if (this.p.millis() - this.pressTime < 300) {
-                this.p.stroke("WHITE");
+            let gap = this.p.millis() - this.pressTime;
+
+            if (gap < 120) {
+                this.p.stroke(255, 255, 255, (gap / 120) * 255);
+            } else if (gap > 120 && gap < 280) {
+                this.p.stroke(255, 255, 255);
+            } else if (gap > 280 && gap < 400) {
+                this.p.stroke(255, 255, 255, ((400 - gap) / 120) * 255);
             } else {
                 this.pressInProgress = false;
             }
-        } else {
-            this.p.stroke("BLACK");
+            this.p.strokeWeight(3);
         }
 
-        this.p.strokeWeight(3);
         this.p.fill(this.colour);
     }
 
     draw(pressed: boolean) {
+        this.p.strokeWeight(0);
         this.hovered = this.mouseOverButton();
 
         if (this.hasBorder) {
             this.applyBorderLogic(pressed);
         }
 
-        if (this.mouseOverButton() && !pressed) {
+        if (this.mouseOverButton() && !pressed && this.hasScale) {
             this.p.rect(this.scaledX, this.scaledY, this.scaledW, this.scaledH, this.r);
         } else {
             this.p.rect(this.x, this.y, this.w, this.h, 10);

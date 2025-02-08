@@ -95,16 +95,16 @@ export class QueueHandler {
         this.queue.push([THEENUM.Colours, colours]);
     }
 
-    public sendInput(input: string): boolean {
+    public sendInput(input: any): boolean {
         const [curr_type, curr_seq] = this.queue[0];
 
         switch (curr_type) {
             case THEENUM.Colours:
                 if (
-                    (input == "q" && curr_seq[0] == Colours.Red) ||
-                    (input == "w" && curr_seq[0] == Colours.Yellow) ||
-                    (input == "e" && curr_seq[0] == Colours.Green) ||
-                    (input == "r" && curr_seq[0] == Colours.Pink)
+                    (input == Colours.Red && curr_seq[0] == Colours.Red) ||
+                    (input == Colours.Yellow && curr_seq[0] == Colours.Yellow) ||
+                    (input == Colours.Green && curr_seq[0] == Colours.Green) ||
+                    (input == Colours.Pink && curr_seq[0] == Colours.Pink)
                 ) {
                     this.popQueue();
                     return true;

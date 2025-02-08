@@ -38,7 +38,7 @@ const sketch = (p: p5) => {
         sceneManager.handleKeyPressed();
     };
 
-    p.mousePressed = () => {
+    p.touchStarted = () => {
         sceneManager.handleMousePressed();
     };
 };
