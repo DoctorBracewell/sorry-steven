@@ -42,6 +42,6 @@ export class GameScene implements Scene {
 
   keyPressed(): void {
     const SO = new SensoryOut();
-    SO.playSound();
+    SO.playSound([1, 1, 0, 0], 120);
   }
 }
