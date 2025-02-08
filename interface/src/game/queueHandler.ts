@@ -1,7 +1,9 @@
+import p5 from "p5";
 import { SERVER_URL } from "../constants";
 import { soundManager } from "../sound/SoundManager";
 import { Colours, GameState } from "./gameState";
 import { checkVibe } from "./vibrationChecker";
+import { SceneEffects } from "../SceneEffects";
 
 export enum THEENUM {
     Sound,
@@ -23,6 +25,7 @@ export class QueueHandler {
     private previousChoice: THEENUM = THEENUM.Vibrations;
 
     private userBeats: number[] = [];
+
 
     constructor() {}
 
@@ -82,21 +85,22 @@ export class QueueHandler {
     }
 
     private addNewColours() {
-        const possibleColours = Object.values(Colours);
-
-        const colours: string[] = [];
+        const possibleColours = Object.values(Colours) as Colours[];
+        const colours: Colours[] = [];
 
         for (let i = 0; i < GameState.coloursCount; i++) {
-            const coulor = possibleColours[Math.floor(Math.random() * possibleColours.length)];
-            colours.push(coulor);
+            const colour = possibleColours[Math.floor(Math.random() * possibleColours.length)];
+            colours.push(colour);
         }
 
         // Send colours
+        SceneEffects.colourSequence = colours;
+        SceneEffects.bpm = GameState.bpm;
 
         this.queue.push([THEENUM.Colours, colours]);
     }
 
-    public sendInput(input: any): boolean {
+    public sendInput(input: any): boolean | null {
 
         if (this.queue.length == 0) {
             return false;
@@ -112,8 +116,8 @@ export class QueueHandler {
                     (input == Colours.Green && curr_seq[0] == Colours.Green) ||
                     (input == Colours.Pink && curr_seq[0] == Colours.Pink)
                 ) {
-                    this.popQueue();
-                    return true;
+                    const finalElem = this.popQueue();
+                    if (finalElem) return true;
                 } else {
                     this.queue.shift();
                     return false;
@@ -138,20 +142,20 @@ export class QueueHandler {
                         this.userBeats = [];
                         return success;
                     } // Can't lose multiple lives in less than a second (i-frames)
-                    return true;
                 }
                 break;
             default:
                 break;
         }
-
-        return false;
+        return null;
     }
 
-    private popQueue() {
+    private popQueue(): boolean {
         this.queue[0][1].shift();
         if (this.queue[0][1].length == 0) {
             this.queue.shift();
+            return true;
         }
+        return false;
     }
 }

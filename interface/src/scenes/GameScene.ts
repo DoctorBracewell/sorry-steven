@@ -46,8 +46,7 @@ export class GameScene implements Scene {
     }
 
     draw(): void {
-        this.p.background("GRAY");
-        this.p.push();
+        this.p.background(255);
 
         // draw buttons at base size
         this.colour_buttons.forEach((btn) => btn.draw(false));
@@ -62,7 +61,7 @@ export class GameScene implements Scene {
             this.p.cursor("default");
         }
 
-        SceneEffects.applyShake(this.p);
+        SceneEffects.applyColour(this.p);
 
         this.manager.update();
 
@@ -104,10 +103,12 @@ export class GameScene implements Scene {
         this.sound_buttons.forEach((btn) => {
             if (btn.mouseOverButton()) {
                 const [i, j] = btn.data;
-                console.log(this.sound_input[i]);
                 if (this.sound_input[i] == -1) {
                     this.sound_input[i] = j;
                     btn.setColour(Colours.Green);
+                    if (!this.sound_input.some((num) => num == -1)) {
+                        this.manager.send_input(this.sound_input);
+                    }
                 }
             }
         });
