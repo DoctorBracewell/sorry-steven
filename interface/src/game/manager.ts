@@ -1,5 +1,5 @@
 import p5 from "p5";
-import { GameState } from "./gameState";
+import { Colours, GameState } from "./gameState";
 import { QueueHandler, THEENUM } from "./queueHandler";
 
 export class Manager {
@@ -46,6 +46,10 @@ export class Manager {
 
         return this.secondsPast + Math.max(3 - GameState.bpm / 80, 0) + Math.random();
 
+    }
+
+    public send_input(input: any) {
+        this.qh.sendInput(input);
     }
 
 
