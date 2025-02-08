@@ -1,16 +1,13 @@
-import * as Tone from "tone";
-
-export class Sound {
-    private freqMapping: Record<number, number> = {
-        0: 261.63, // C4
-        1: 329.63, // E4
-        2: 392.0, // G4
-        3: 523.25, // C5
+export class SoundManager {
+    private audioContext = new AudioContext();
+    private static labelToNote: Record<number, string> = {
+        0: "c3",
+        1: "e3",
+        2: "g3",
+        3: "c4",
     };
 
-    private audioContext = new AudioContext();
-
-    public async playSample(url: string) {
+    public async playSample(url: string, volume: number = 1.0) {
         const response = await fetch(url);
         const arrayBuffer = await response.arrayBuffer();
         const audioBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
@@ -21,7 +18,7 @@ export class Sound {
 
         // nodes
         const gainNode = this.audioContext.createGain();
-        gainNode.gain.value = 4.0;
+        gainNode.gain.value = volume;
 
         // Connect the source to the gain node
         source.connect(gainNode);
@@ -31,11 +28,11 @@ export class Sound {
         source.start();
     }
 
-    async playSound(sounds: number[], bpm: number) {
+    async playNotes(notes: number[], bpm: number) {
         const noteLength = 60 / bpm;
 
-        for (let i = 0; i < sounds.length; i++) {
-            await this.playSample("/notes/c3.mp3");
+        for (const note of notes) {
+            await this.playSample(`/notes/${SoundManager.labelToNote[note]}.mp3`);
             await new Promise((r) => setTimeout(r, noteLength * 1000));
         }
     }
