@@ -1,4 +1,3 @@
-import p5 from "p5";
 import { SERVER_URL } from "../constants";
 import { soundManager } from "../sound/SoundManager";
 import { Colours, GameState } from "./gameState";
@@ -122,6 +121,7 @@ export class QueueHandler {
                     this.queue.shift();
                     return false;
                 }
+                break;
             case THEENUM.Sound:
                 if (
                     input == this.queue[0][1]
