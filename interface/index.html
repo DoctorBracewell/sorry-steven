@@ -34,37 +34,38 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                position: relative;
             }
 
             button#start {
-                font-size: 24px;
-                padding: 15px 40px;
-                border: none;
-                border-radius: 10px;
-                background: linear-gradient(135deg, #ff4d4d, #ff9933);
-                color: white;
+                color: red;
                 cursor: pointer;
-                box-shadow: 0 0 20px rgba(255, 77, 77, 0.8);
-                transition: all 0.2s ease-in-out;
                 outline: none;
-                font-family: "Minecraft";
+                background-color: transparent;
+                border: none;
+                position: absolute;
+                height: 200px;
+                width: 400px;
+                margin-top: 250px;
+                margin-right: 450px;
             }
 
-            button#start:hover {
-                background: linear-gradient(135deg, #ff9933, #ffff66);
-                box-shadow: 0 0 30px rgba(255, 255, 102, 1);
-                transform: scale(1.1);
-            }
-
-            button#start:active {
-                transform: scale(0.95);
+            img {
+                max-width: 100vw;
+                max-height: 100vh;
+                width: auto;
+                height: auto;
+                display: block;
+                margin: auto;
+                position: absolute;
             }
         </style>
     </head>
     <body>
         <div id="canvas">
             <div id="menu">
-                <button id="start">Start!</button>
+                <img src="menu.png" />
+                <button id="start"></button>
             </div>
         </div>
         <script type="module" src="/src/main.ts"></script>
