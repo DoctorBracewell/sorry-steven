@@ -73,8 +73,8 @@ export class GameScene implements Scene {
         this.p.background(255);
 
         this.p.push();
-        SceneEffects.applyColour(this.p);
-        SceneEffects.applyShake(this.p);
+        SceneEffects.applyColour();
+        SceneEffects.applyShake();
 
         this.p.imageMode(this.p.CENTER);
         this.p.image(

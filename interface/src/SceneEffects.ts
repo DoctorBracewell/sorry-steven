@@ -1,5 +1,5 @@
 import p5 from "p5";
-import { Colours } from "./game/gameState";
+import { Colours, GameState } from "./game/gameState";
 import { CANVAS_WIDTH, CANVAS_HEIGHT, FPS } from "./constants";
 import { scaler } from "./main";
 
@@ -13,24 +13,26 @@ const ColourRGBs: Record<Colours, [number, number, number]> = {
 export class SceneEffects {
     private static shakeAmount = 0;
 
-    public static colour_intensity = 100;
+    public static p:p5;
+    public static colour_intensity = 0;
     public static colourSequence: Colours[] = [];
     public static bpm: number = 90;
+    private static startTime: number = 0;
 
-    static pulse(p: p5, intensity: number, speed: number, baseSize: number): number {
-        const pulse = baseSize + Math.sin(p.frameCount * speed) * intensity;
-        return pulse > 0 ? pulse : 0;
+    static resetIntensity() {
+        this.startTime = this.p.millis();
+        this.colour_intensity = 100;
     }
 
     static setShake(amount: number): void {
         this.shakeAmount = amount;
     }
 
-    static applyShake(p: p5): void {
+    static applyShake(): void {
         if (this.shakeAmount > 0) {
-            const shakeX = p.random(-this.shakeAmount, this.shakeAmount);
-            const shakeY = p.random(-this.shakeAmount, this.shakeAmount);
-            p.translate(shakeX, shakeY);
+            const shakeX = this.p.random(-this.shakeAmount, this.shakeAmount);
+            const shakeY = this.p.random(-this.shakeAmount, this.shakeAmount);
+            this.p.translate(shakeX, shakeY);
 
             // Reduce shake over time
             this.shakeAmount *= 0.6; // Lower factor = slower (faster?) decay
@@ -40,35 +42,34 @@ export class SceneEffects {
         }
     }
 
-    static applyColour(p: p5): void {
+    static applyColour(): void {
         if (this.colourSequence.length == 0) {
             return;
         }
 
-        const duration = 60 / this.bpm;
-        const lowerLimit = 0.1;
-        const m = Math.pow(lowerLimit, 1 / (duration * FPS));
+        const duration = (60 / this.bpm) * 1000;
 
         let c = this.colourSequence[0];
 
-        if (this.colour_intensity <= lowerLimit * 100) {
+        if (this.colour_intensity <= 5) {
             this.colourSequence.shift();
-            this.colour_intensity = 100;
+            this.resetIntensity()
             return;
         }
 
         for (let y = 0; y < scaler.getSize().physical.height; y++) {
-            let alpha = p.map(
+            let alpha = this.p.map(
                 y, 0, scaler.getSize().physical.height, (this.colour_intensity / 100) * 100, (this.colour_intensity / 100) * 250
             );
 
             let [r, g, b] = ColourRGBs[c];
 
-            p.stroke(r, g, b, alpha);
-            p.strokeWeight(2);
-            p.line(0, y, scaler.getSize().physical.width, y);
+            this.p.stroke(r, g, b, alpha);
+            this.p.strokeWeight(2);
+            this.p.line(0, y, scaler.getSize().physical.width, y);
         }
 
-        this.colour_intensity *= m;
+        this.colour_intensity = 100 * (1 - ((this.p.millis() - this.startTime) / duration))
+
     }
 }
