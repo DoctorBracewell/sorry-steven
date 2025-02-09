@@ -59,8 +59,9 @@ export class SceneEffects {
 
         for (let y = 0; y < scaler.getSize().physical.height; y++) {
             let alpha = p.map(
-                y, 0, scaler.getSize().physical.height, (this.colour_intensity / 100) * 50, (this.colour_intensity / 100) * 200
+                y, 0, scaler.getSize().physical.height, (this.colour_intensity / 100) * 100, (this.colour_intensity / 100) * 250
             );
+
             let [r, g, b] = ColourRGBs[c];
 
             p.stroke(r, g, b, alpha);
