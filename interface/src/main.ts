@@ -4,6 +4,7 @@ import { IntroScene, GameScene, CutScene, EndScene } from "./scenes";
 import * as p5s from "@fal-works/p5-scaler";
 import "./style.css";
 import { FPS } from "./constants";
+import { SceneEffects } from "./SceneEffects";
 
 let sceneManager: SceneManager;
 export const scaler = p5s.fixedRatio({
@@ -21,6 +22,7 @@ const sketch = (p: p5) => {
         scaler.resizeCanvas();
 
         p.frameRate(FPS);
+        SceneEffects.p = p;
 
         sceneManager = new SceneManager(p);
         sceneManager.addScene("intro", new IntroScene(p, sceneManager));
