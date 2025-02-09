@@ -107,6 +107,7 @@ export class Button {
                 this.p.rect(this.x, this.y, this.w, this.h, 10);
             }
         } else {
+            this.p.noSmooth();
             this.p.imageMode(this.p.CENTER);
             this.p.image(this.img, this.x, this.y, this.w, this.h);
         }

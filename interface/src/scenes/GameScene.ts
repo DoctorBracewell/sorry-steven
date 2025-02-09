@@ -14,7 +14,8 @@ export class GameScene implements Scene {
     private manager: Manager;
 
     private colour_buttons: Button[] = [];
-    private vibration_button: Button;
+    private vibration_button: Button | null = null;
+    private image: p5.Image;
 
     private sound_input: number[];
     private sound_buttons: Button[] = [];
@@ -24,6 +25,7 @@ export class GameScene implements Scene {
         this.SM = sceneManager;
         this.manager = new Manager(p);
         this.sound_input = Array(GameState.soundCounts).fill(-1);
+        this.image = this.p.loadImage("/interface/brain_gap.png");
     }
 
     setup(): void {
@@ -57,7 +59,7 @@ export class GameScene implements Scene {
             false,
             false,
             null,
-            "/cutscenes/face_steven.png"
+            "/interface/button.png"
         );
 
         this.make_sound_buttons();
@@ -70,9 +72,20 @@ export class GameScene implements Scene {
         SceneEffects.applyColour(this.p);
         SceneEffects.applyShake(this.p);
 
+        this.p.imageMode(this.p.CENTER);
+        console.log(this.image.width);
+        this.p.image(
+            this.image,
+            scaler.getSize().physical.width / 2,
+            scaler.getSize().physical.height / 2,
+            this.image.width * (this.p.height / scaler.getSize().logical.height),
+            scaler.getSize().physical.height
+        );
+
         // draw buttons at base size
         this.colour_buttons.forEach((btn) => btn.draw(false));
         this.sound_buttons.forEach((btn) => btn.draw(false));
+        this.vibration_button!.draw(false);
 
         if (
             this.colour_buttons.some((b) => b.hovered) ||

@@ -29,15 +29,15 @@ const sketch = (p: p5) => {
 
         sceneManager.addScene(
             "cutscene1",
-            new CutScene(p, sceneManager, "/cutscenes/brain_steven.png", "cutscene2")
+            new CutScene(p, sceneManager, "/cutscenes/Cutscene_1.png", "cutscene2")
         );
         sceneManager.addScene(
             "cutscene2",
-            new CutScene(p, sceneManager, "/cutscenes/cutscene_2.png", "cutscene3")
+            new CutScene(p, sceneManager, "/cutscenes/Cutscene_2.png", "cutscene3")
         );
         sceneManager.addScene(
             "cutscene3",
-            new CutScene(p, sceneManager, "/cutscenes/cutscene_3.png", "intro")
+            new CutScene(p, sceneManager, "/cutscenes/Cutscene_3.png", "intro")
         );
 
         sceneManager.setScene("game");
@@ -54,7 +54,6 @@ const sketch = (p: p5) => {
     p.touchStarted = () => {
         sceneManager.handleMousePressed();
     };
-
 };
 
 document.querySelector("#start")!.addEventListener("click", () => {
