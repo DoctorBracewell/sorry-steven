@@ -1,7 +1,7 @@
 import p5 from "p5";
 import { SceneManager, Scene } from "../SceneManager";
 import { Button } from "../utils/Button";
-import { Colours, GameState } from "../game/gameState";
+import { Colours, GameState, THEENUM } from "../game/gameState";
 import { Manager } from "../game/manager";
 import { SceneEffects } from "../SceneEffects";
 import { soundManager } from "../sound/SoundManager";
@@ -110,6 +110,14 @@ export class GameScene implements Scene {
             0.05 * scaler.getSize().physical.width,
             0.9 * scaler.getSize().physical.height
         );
+
+        this.display_task_time(
+            0.75 * scaler.getSize().physical.width,
+            0.05 * scaler.getSize().physical.height,
+            0.2 * scaler.getSize().physical.width,
+            0.05 * scaler.getSize().physical.width,
+            THEENUM.Vibrations // TODO: get Ollie to pass this to me
+        )
     }
 
     make_sound_buttons() {
@@ -159,6 +167,40 @@ export class GameScene implements Scene {
             this.p.stroke(lerpedColor);
             this.p.line(x - w / 2, y + h - i, x + w / 2, y + h - i);
         }
+    }
+
+    task_to_sense(task: THEENUM) {
+        switch (task) {
+            case THEENUM.Sound:
+                return "Listen";
+            case THEENUM.Colours:
+                return "See";
+            case THEENUM.Vibrations:
+                return "Feel";
+            default:
+                return "???";
+        }
+    }
+
+    display_task_time(x: number, y: number, w: number, h: number, task: THEENUM) {
+        let sense: string = this.task_to_sense(task);
+
+        this.p.fill(100);
+        this.p.rect(x, y, w, h, 5);
+
+        let fontSize: number = 100;
+        this.p.textSize(fontSize);
+
+        // adjust font size
+        while (this.p.textWidth(sense) > w - 10 || this.p.textAscent() + this.p.textDescent() > h - 10) {
+            fontSize--;
+            this.p.textSize(fontSize);
+        }
+
+        this.p.textAlign(this.p.CENTER, this.p.CENTER)
+        this.p.fill(0);
+        this.p.stroke(0);
+        this.p.text(sense, x + w / 2, y + h / 2);
     }
 
     mousePressed(): void {
