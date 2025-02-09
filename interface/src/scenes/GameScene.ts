@@ -73,7 +73,6 @@ export class GameScene implements Scene {
         SceneEffects.applyShake(this.p);
 
         this.p.imageMode(this.p.CENTER);
-        console.log(this.image.width);
         this.p.image(
             this.image,
             scaler.getSize().physical.width / 2,
@@ -101,10 +100,10 @@ export class GameScene implements Scene {
         this.p.pop();
 
         this.display_time(
-            0.5 * scaler.getSize().physical.width,
-            0.03 * scaler.getSize().physical.height,
-            0.6 * scaler.getSize().physical.width,
-            0.04 * scaler.getSize().physical.width
+            0.07 * scaler.getSize().physical.width,
+            0.05 * scaler.getSize().physical.height,
+            0.05 * scaler.getSize().physical.width,
+            0.9 * scaler.getSize().physical.height
         );
     }
 
@@ -142,15 +141,21 @@ export class GameScene implements Scene {
     }
 
     display_time(x: number, y: number, w: number, h: number) {
-        const progressWidth = this.p.map(GameState.timeLeft, 0, 100, 0, w); // Calculate the width of the filled portion
-
+        const progressHeight = this.p.map(GameState.timeLeft, 0, 100, 0, h);
+      
         this.p.fill(100);
-        this.p.rect(x - w / 2, y, w, h, 5); // Draws the bar with rounded corners
+        this.p.rect(x - w / 2, y, w, h, 5);
+      
+        const bottomColor = this.p.color(0, 0, 0); // Red
+        const topColor = this.p.color(0, 255, 0);    // Green
 
-        // Filled progress portion
-        this.p.fill(255, 0, 150);
-        this.p.rect(x - w / 2, y, progressWidth, h, 5);
+        for (let i = 0; i < progressHeight; i++) {
+            const lerpedColor = this.p.lerpColor(bottomColor, topColor, i / h)
+            this.p.stroke(lerpedColor);
+            this.p.line(x - w / 2, y + h - i, x + w / 2, y + h - i);
+        }
     }
+      
 
     mousePressed(): void {
         // draw buttons at scaled size if pressed

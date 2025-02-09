@@ -74,7 +74,6 @@ export class SceneManager {
             if (this.fadeAlpha <= 0) {
                 this.fadeAlpha = 0;
                 clearInterval(fadeInterval);
-                console.log("FADED IN");
                 callback();
             }
         }, 16);
