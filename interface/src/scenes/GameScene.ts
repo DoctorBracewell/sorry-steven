@@ -113,7 +113,8 @@ export class GameScene implements Scene {
             0.05 * scaler.getSize().physical.height,
             0.2 * scaler.getSize().physical.width,
             0.05 * scaler.getSize().physical.width,
-            THEENUM.Vibrations // TODO: get Ollie to pass this to me
+            THEENUM.Vibrations, // TODO: get Ollie to pass this to me
+            GameState.timeLeft // TODO: get Ollie to deal with this
         )
     }
 
@@ -154,9 +155,9 @@ export class GameScene implements Scene {
         const progressHeight = this.p.map(GameState.timeLeft, 0, 100, 0, h);
 
         this.p.fill(100);
-        this.p.rect(x - w / 2, y, w, h, 5);
+        this.p.rect(x - w / 2, y, w, h, 15);
 
-        const bottomColor = this.p.color(0, 0, 0); // Red
+        const bottomColor = this.p.color(0, 0, 0); // Black
         const topColor = this.p.color(0, 255, 0); // Green
 
         for (let i = 0; i < progressHeight; i++) {
@@ -179,11 +180,13 @@ export class GameScene implements Scene {
         }
     }
 
-    display_task_time(x: number, y: number, w: number, h: number, task: THEENUM) {
+    display_task_time(x: number, y: number, w: number, h: number, task: THEENUM, remainingTime: number) {
         let sense: string = this.task_to_sense(task);
 
         this.p.fill(100);
-        this.p.rect(x, y, w, h, 5);
+        this.p.stroke(0);
+        this.p.strokeWeight(6);
+        this.p.rect(x, y, w, h, 15);
 
         let fontSize: number = 100;
         this.p.textSize(fontSize);
@@ -194,9 +197,13 @@ export class GameScene implements Scene {
             this.p.textSize(fontSize);
         }
 
+
+
+        // write the sense of the current task
         this.p.textAlign(this.p.CENTER, this.p.CENTER)
         this.p.fill(0);
         this.p.stroke(0);
+        this.p.strokeWeight(1);
         this.p.text(sense, x + w / 2, y + h / 2);
     }
 
