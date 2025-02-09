@@ -29,6 +29,8 @@ export class GameScene implements Scene {
     }
 
     setup(): void {
+        soundManager.manageMusic();
+
         // create buttons
         let index = 0;
         for (const c in Colours) {
