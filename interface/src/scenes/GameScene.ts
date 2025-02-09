@@ -35,11 +35,11 @@ export class GameScene implements Scene {
             this.colour_buttons.push(
                 new Button(
                     this.p,
-                    scaler.getSize().physical.width * 0.1 +
-                        index * scaler.getSize().physical.width * 0.12,
-                    scaler.getSize().physical.height * 0.4,
-                    scaler.getSize().physical.width * 0.1,
-                    scaler.getSize().physical.width * 0.1,
+                    scaler.getSize().physical.width * 0.35 +
+                        index * scaler.getSize().physical.width * 0.08,
+                    scaler.getSize().physical.height * 0.25,
+                    scaler.getSize().physical.width * 0.06,
+                    scaler.getSize().physical.width * 0.06,
                     10,
                     Colours[c as keyof typeof Colours],
                     true
@@ -51,9 +51,9 @@ export class GameScene implements Scene {
         this.vibration_button = new Button(
             this.p,
             scaler.getSize().physical.width / 2,
-            300,
-            100,
-            100,
+            scaler.getSize().physical.height * 0.1,
+            scaler.getSize().physical.width * 0.1,
+            scaler.getSize().physical.width * 0.1,
             0,
             Colours.Pink,
             false,
@@ -113,12 +113,12 @@ export class GameScene implements Scene {
                 this.sound_buttons.push(
                     new Button(
                         this.p,
-                        scaler.getSize().physical.width * 0.4 +
+                        scaler.getSize().physical.width * 0.385 +
                             i * scaler.getSize().physical.width * 0.06,
-                        scaler.getSize().physical.height * 0.2 +
-                            scaler.getSize().physical.height * 0.06 * j,
-                        scaler.getSize().physical.width * 0.03,
-                        scaler.getSize().physical.width * 0.03,
+                        scaler.getSize().physical.height * 0.4 +
+                            scaler.getSize().physical.height * 0.08 * j,
+                        scaler.getSize().physical.width * 0.05,
+                        scaler.getSize().physical.width * 0.04,
                         0,
                         Colours.Red,
                         true,
