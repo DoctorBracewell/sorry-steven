@@ -137,6 +137,8 @@ export class GameScene implements Scene {
         this.manager.update();
         this.show_result(this.manager.send_input("we got any time left??"));
         if (GameState.timeLeft < 0) {
+            soundManager.ending();
+            GameState.setScore();
             this.SM.setScene("sorry");
         }
 
