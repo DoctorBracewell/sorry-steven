@@ -128,7 +128,7 @@ export class GameScene implements Scene {
             0.05 * scaler.getSize().physical.height,
             0.2 * scaler.getSize().physical.width,
             0.05 * scaler.getSize().physical.width,
-            GameState.taskType, // TODO: get Ollie to pass this to me
+            GameState.taskType,
             GameState.totalTaskTime,
             GameState.timeLeftOnTask
         );
@@ -136,13 +136,13 @@ export class GameScene implements Scene {
 
     make_sound_buttons() {
         for (let i = 0; i < GameState.soundCounts; i++) {
-            for (let j = GameState.soundTypeCount - 1; j >= 0; j--) {
+            for (let j = 0; j < GameState.soundTypeCount; j++) {
                 this.sound_buttons.push(
                     new Button(
                         this.p,
                         scaler.getSize().physical.width * 0.385 +
                             i * scaler.getSize().physical.width * 0.06,
-                        scaler.getSize().physical.height * 0.4 +
+                        scaler.getSize().physical.height * 0.46 -
                             scaler.getSize().physical.height * 0.08 * j,
                         scaler.getSize().physical.width * 0.05,
                         scaler.getSize().physical.width * 0.04,
