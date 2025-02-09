@@ -30,6 +30,7 @@ export class GameScene implements Scene {
 
     setup(): void {
         soundManager.manageMusic();
+        soundManager.playSample("/voice/is_it_a_colour/mov");
 
         // create buttons
         let index = 0;
@@ -101,7 +102,7 @@ export class GameScene implements Scene {
 
         this.manager.update();
         if (GameState.timeLeft < 0) {
-            this.SM.setScene('end');
+            this.SM.setScene("end");
         }
 
         this.p.pop();
@@ -119,7 +120,7 @@ export class GameScene implements Scene {
             0.2 * scaler.getSize().physical.width,
             0.05 * scaler.getSize().physical.width,
             THEENUM.Vibrations // TODO: get Ollie to pass this to me
-        )
+        );
     }
 
     make_sound_buttons() {
@@ -194,12 +195,15 @@ export class GameScene implements Scene {
         this.p.textSize(fontSize);
 
         // adjust font size
-        while (this.p.textWidth(sense) > w - 10 || this.p.textAscent() + this.p.textDescent() > h - 10) {
+        while (
+            this.p.textWidth(sense) > w - 10 ||
+            this.p.textAscent() + this.p.textDescent() > h - 10
+        ) {
             fontSize--;
             this.p.textSize(fontSize);
         }
 
-        this.p.textAlign(this.p.CENTER, this.p.CENTER)
+        this.p.textAlign(this.p.CENTER, this.p.CENTER);
         this.p.fill(0);
         this.p.stroke(0);
         this.p.text(sense, x + w / 2, y + h / 2);
