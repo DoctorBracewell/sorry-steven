@@ -130,7 +130,7 @@ export class QueueHandler {
                 break;
             case THEENUM.Sound:
                 if (
-                    input == this.queue[0][1]
+                    this.arraysAreEqual(input, this.queue[0][1])
                 ) {
                     this.queue.shift();
                     return true;
@@ -164,4 +164,9 @@ export class QueueHandler {
         }
         return false;
     }
+
+    private arraysAreEqual(arr1: any[], arr2: any[]): boolean {
+        if (arr1.length !== arr2.length) return false;
+        return arr1.every((value, index) => value === arr2[index]);
+      }
 }
