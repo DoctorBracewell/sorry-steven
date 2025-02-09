@@ -32,7 +32,12 @@ export class GameScene implements Scene {
         for (const c in Colours) {
             this.colour_buttons.push(
                 new Button(
-                    this.p, 200 + index * 100, 100, 80, 80, 10,
+                    this.p,
+                    scaler.getSize().physical.width * 0.1 + index * scaler.getSize().physical.width * 0.12,
+                    scaler.getSize().physical.height * 0.4,
+                    scaler.getSize().physical.width * 0.1,
+                    scaler.getSize().physical.width * 0.1,
+                    10,
                     Colours[c as keyof typeof Colours],
                     true
                 )
@@ -81,7 +86,16 @@ export class GameScene implements Scene {
             for (let j = 0; j < GameState.soundTypeCount; j++) {
                 this.sound_buttons.push(
                     new Button(
-                        this.p, 100 + i * 50, 400 + 40 * j, 30, 30, 0, Colours.Red, true, false, [i, j]
+                        this.p,
+                        scaler.getSize().physical.width * 0.4 + i * scaler.getSize().physical.width * 0.06,
+                        scaler.getSize().physical.height * 0.2 + scaler.getSize().physical.height * 0.06 * j, 
+                        scaler.getSize().physical.width * 0.03,
+                        scaler.getSize().physical.width * 0.03,
+                        0,
+                        Colours.Red,
+                        true, 
+                        false,
+                        [i, j]
                     )
                 );
             }
