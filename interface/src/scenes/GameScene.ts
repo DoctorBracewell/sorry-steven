@@ -193,18 +193,28 @@ export class GameScene implements Scene {
     }
 
     display_time(x: number, y: number, w: number, h: number) {
-        const progressHeight = this.p.map(GameState.timeLeft, 0, 100, 0, h);
+        const steps = 15;
+        const progressHeight = this.p.map(GameState.timeLeft, 0, 100, 0, steps);
 
         this.p.fill(100);
         this.p.rect(x - w / 2, y, w, h);
 
-        const bottomColor = this.p.color(0, 0, 0); // Black
-        const topColor = this.p.color(0, 255, 0); // Green
+        this.p.colorMode(this.p.HSL);
+        const bottomColor = this.p.color(0, 79, 47); // Black
+        const topColor = this.p.color(96, 79, 47); // Green
+        this.p.colorMode(this.p.RGB);
 
-        for (let i = 0; i < progressHeight; i++) {
-            const lerpedColor = this.p.lerpColor(bottomColor, topColor, i / h);
-            this.p.stroke(lerpedColor);
-            this.p.line(x - w / 2, y + h - i, x + w / 2, y + h - i);
+        const stepSize = h / steps; // Height of each step
+
+        for (let step = 0; step < progressHeight; step++) {
+            let quantizedT = step / (steps - 1); // Normalized step value
+            let lerpedColor = this.p.lerpColor(bottomColor, topColor, quantizedT);
+
+            this.p.fill(lerpedColor);
+            this.p.noStroke();
+
+            let yPos = y + h - (step + 1) * stepSize; // Align blocks properly
+            this.p.rect(x - w / 2, yPos, w, stepSize); // Draw rectangle block
         }
 
         // black border
@@ -248,6 +258,7 @@ export class GameScene implements Scene {
 
         let fontSize: number = 100;
         this.p.textSize(fontSize);
+        this.p.textFont("Pixelify Sans");
 
         // adjust font size
         while (
