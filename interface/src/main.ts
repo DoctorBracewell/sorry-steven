@@ -6,6 +6,7 @@ import "./style.css";
 import { FPS } from "./constants";
 import { SceneEffects } from "./SceneEffects";
 import { ScoreScene } from "./scenes/ScoreScene";
+import { GameState } from "./game/gameState";
 
 let sceneManager: SceneManager;
 export const scaler = p5s.fixedRatio({
@@ -94,6 +95,7 @@ const sketch = (p: p5) => {
 };
 
 document.querySelector("#start")!.addEventListener("click", () => {
+    GameState.timeLeft = 100;
     (document.querySelector("#menu")! as HTMLDivElement).style.display = "none";
     new p5(sketch, document.getElementById("canvas")!);
 });
