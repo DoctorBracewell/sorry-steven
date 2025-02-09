@@ -16,8 +16,8 @@ export function checkVibe(userBeats: number[], beats: number[]) {
     let min_score = 999999999;
     for (let i = 0; i < userSpaces.length; i++) {
 
-        const initialUserSpace = userBeats[i];
-        const relative = userSpaces.map(space => space / initialUserSpace * realSpaces[i]);
+        const ratio = realSpaces[i] / userSpaces[i]
+        const relative = userSpaces.map(space => space * ratio);
 
         const score = Array(userSpaces.length)
             .fill(0)
@@ -30,6 +30,6 @@ export function checkVibe(userBeats: number[], beats: number[]) {
 
     }
 
-    return min_score < 0.5;
+    return min_score < 1.5;
 
 }

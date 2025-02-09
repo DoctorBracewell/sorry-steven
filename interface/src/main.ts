@@ -1,7 +1,6 @@
 import p5 from "p5";
 import { SceneManager } from "./SceneManager";
-import { IntroScene, GameScene } from "./scenes";
-import { CutScene } from "./scenes/CutScenes";
+import { IntroScene, GameScene, CutScene, EndScene } from "./scenes";
 import * as p5s from "@fal-works/p5-scaler";
 import "./style.css";
 import { FPS } from "./constants";
@@ -26,6 +25,7 @@ const sketch = (p: p5) => {
         sceneManager = new SceneManager(p);
         sceneManager.addScene("intro", new IntroScene(p, sceneManager));
         sceneManager.addScene("game", new GameScene(p, sceneManager));
+        sceneManager.addScene('end', new EndScene(p, sceneManager))
 
         sceneManager.addScene(
             "cutscene1",
@@ -40,7 +40,7 @@ const sketch = (p: p5) => {
             new CutScene(p, sceneManager, "/cutscenes/Cutscene_3.png", "intro")
         );
 
-        sceneManager.setScene("game");
+        sceneManager.setScene("end");
     };
 
     p.draw = () => {

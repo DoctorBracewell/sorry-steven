@@ -5,6 +5,12 @@ export enum Colours {
     Green = "GREEN",
 }
 
+export enum THEENUM {
+    Sound,
+    Colours,
+    Vibrations,
+}
+
 export class GameState {
     public static bpm: number = 135;
     public static onBeatCount: number = 4;

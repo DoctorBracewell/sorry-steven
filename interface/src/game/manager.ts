@@ -1,6 +1,6 @@
 import p5 from "p5";
-import { GameState } from "./gameState";
-import { QueueHandler, THEENUM } from "./queueHandler";
+import { GameState, THEENUM } from "./gameState";
+import { QueueHandler } from "./queueHandler";
 
 export class Manager {
 
@@ -40,7 +40,7 @@ export class Manager {
             this.next_choice = time_offset + this.get_next_choice_time();
         }
 
-        GameState.timeLeft *= 0.999; 
+        GameState.timeLeft -= 0.001; 
 
     }
 
