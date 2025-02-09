@@ -28,7 +28,9 @@ export class Button {
 
     public data: any;
     private image: string;
+    private pressedImage: string;
     private img: p5.Image;
+    private pressedImg: p5.Image;
 
     constructor(
         p: p5,
@@ -41,7 +43,8 @@ export class Button {
         hasBorder: boolean,
         hasScale: boolean = true,
         data: any = null,
-        image: string = ""
+        image: string = "",
+        pressedImage: string = ""
     ) {
         this.p = p;
 
@@ -66,6 +69,8 @@ export class Button {
         this.data = data;
         this.image = image;
         this.img = this.p.loadImage(this.image);
+        this.pressedImage = pressedImage;
+        this.pressedImg = this.p.loadImage(this.pressedImage);
     }
 
     applyBorderLogic(pressed: boolean) {
@@ -93,9 +98,10 @@ export class Button {
     }
 
     draw(pressed: boolean) {
+        this.hovered = this.mouseOverButton();
+
         if (this.image === "") {
             this.p.strokeWeight(0);
-            this.hovered = this.mouseOverButton();
 
             if (this.hasBorder) {
                 this.applyBorderLogic(pressed);
@@ -107,20 +113,46 @@ export class Button {
                 this.p.rect(this.x, this.y, this.w, this.h, 10);
             }
         } else {
+            if (pressed) {
+                this.pressInProgress = true;
+                this.pressTime = this.p.millis();
+            }
+
             this.p.noSmooth();
             this.p.imageMode(this.p.CENTER);
-            this.p.image(this.img, this.x, this.y, this.w, this.h);
+
+            if (this.pressInProgress) {
+                let gap = this.p.millis() - this.pressTime;
+
+                if (gap < 75) {
+                    this.p.image(this.pressedImg, this.x, this.y, this.w, this.h);
+                } else {
+                    this.pressInProgress = false;
+                    this.p.image(this.img, this.x, this.y, this.w, this.h);
+                }
+            } else {
+                this.p.image(this.img, this.x, this.y, this.w, this.h);
+            }
         }
     }
 
     public mouseOverButton(): boolean {
         // TODO : make it recognise mouse over scaled button
-        return (
-            this.p.mouseX > this.x &&
-            this.p.mouseX < this.x + this.w &&
-            this.p.mouseY > this.y &&
-            this.p.mouseY < this.y + this.h
-        );
+        if (this.image === "") {
+            return (
+                this.p.mouseX > this.x &&
+                this.p.mouseX < this.x + this.w &&
+                this.p.mouseY > this.y &&
+                this.p.mouseY < this.y + this.h
+            );
+        } else {
+            return (
+                this.p.mouseX > this.x - this.w / 2 &&
+                this.p.mouseX < this.x + this.w / 2 &&
+                this.p.mouseY > this.y - this.h / 2 &&
+                this.p.mouseY < this.y + this.h / 2
+            );
+        }
     }
 
     public getColour() {

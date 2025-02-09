@@ -59,7 +59,8 @@ export class GameScene implements Scene {
             false,
             false,
             null,
-            "/interface/button.png"
+            "/interface/button.png",
+            "/interface/button_depressed.png"
         );
 
         this.make_sound_buttons();
@@ -88,7 +89,8 @@ export class GameScene implements Scene {
 
         if (
             this.colour_buttons.some((b) => b.hovered) ||
-            this.sound_buttons.some((b) => b.hovered)
+            this.sound_buttons.some((b) => b.hovered) ||
+            this.vibration_button!.hovered
         ) {
             this.p.cursor("pointer");
         } else {
@@ -142,20 +144,19 @@ export class GameScene implements Scene {
 
     display_time(x: number, y: number, w: number, h: number) {
         const progressHeight = this.p.map(GameState.timeLeft, 0, 100, 0, h);
-      
+
         this.p.fill(100);
         this.p.rect(x - w / 2, y, w, h, 5);
-      
+
         const bottomColor = this.p.color(0, 0, 0); // Red
-        const topColor = this.p.color(0, 255, 0);    // Green
+        const topColor = this.p.color(0, 255, 0); // Green
 
         for (let i = 0; i < progressHeight; i++) {
-            const lerpedColor = this.p.lerpColor(bottomColor, topColor, i / h)
+            const lerpedColor = this.p.lerpColor(bottomColor, topColor, i / h);
             this.p.stroke(lerpedColor);
             this.p.line(x - w / 2, y + h - i, x + w / 2, y + h - i);
         }
     }
-      
 
     mousePressed(): void {
         // draw buttons at scaled size if pressed
@@ -184,6 +185,11 @@ export class GameScene implements Scene {
                 }
             }
         });
+
+        if (this.vibration_button!.mouseOverButton()) {
+            this.vibration_button!.draw(true);
+            // this.show_result(this.manager.send_input(this.vibration_button.getColour()));
+        }
     }
 
     keyPressed(): void {}
