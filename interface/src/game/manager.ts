@@ -58,7 +58,7 @@ export class Manager {
     }
 
     public send_input(input: any): boolean | null {
-        console.log(GameState.runOutOfTime)
+
         let seq_complete: boolean;
         if (input == "we got any time left??") {
             if (!GameState.runOutOfTime) {

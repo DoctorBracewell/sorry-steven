@@ -26,6 +26,8 @@ export class QueueHandler {
 
         const choice = choices[Math.floor(Math.random() * choices.length)];
 
+        this.queue = [];
+
         if (this.queue.length > 0) {
             GameState.runOutOfTime = true;
         }
@@ -129,6 +131,8 @@ export class QueueHandler {
                 }
                 break;
             case THEENUM.Sound:
+                console.log(this.queue[0][1]);
+                console.log(input);
                 if (
                     this.arraysAreEqual(input, this.queue[0][1])
                 ) {
