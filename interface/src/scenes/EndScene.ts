@@ -15,7 +15,7 @@ export class EndScene implements Scene {
         setTimeout(() => {
             this.p.remove();
             (document.querySelector("#menu")! as HTMLDivElement).style.display = "block";
-        }, 3000);
+        }, 8000);
     }
 
     draw(): void {

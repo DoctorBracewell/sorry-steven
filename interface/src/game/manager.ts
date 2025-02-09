@@ -39,7 +39,7 @@ export class Manager {
             } else if (choiceType == THEENUM.Vibrations) {
                 time_offset = 240 / GameState.bpm;
             } else {
-                time_offset = 240 / GameState.bpm; // To Change
+                time_offset = 240 / GameState.bpm + 0.6; // To Change
             }
 
             this.next_choice = time_offset + this.get_next_choice_time();

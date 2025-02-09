@@ -26,11 +26,11 @@ export class QueueHandler {
 
         const choice = choices[Math.floor(Math.random() * choices.length)];
 
-        this.queue = [];
-
         if (this.queue.length > 0) {
             GameState.runOutOfTime = true;
         }
+
+        this.queue = [];
 
         if (choice == THEENUM.Vibrations) {
             this.addNewVibration();
@@ -58,7 +58,7 @@ export class QueueHandler {
             sounds[indexes[i]] = i;
         }
 
-        soundManager.playNotes(sounds, GameState.bpm);
+        setTimeout(() => soundManager.playNotes(sounds, GameState.bpm), 600);
 
         this.queue.push([THEENUM.Sound, sounds]);
     }
@@ -131,8 +131,6 @@ export class QueueHandler {
                 }
                 break;
             case THEENUM.Sound:
-                console.log(this.queue[0][1]);
-                console.log(input);
                 if (
                     this.arraysAreEqual(input, this.queue[0][1])
                 ) {
