@@ -5,6 +5,8 @@ import { Colours, GameState } from "../game/gameState";
 import { Manager } from "../game/manager";
 import { SceneEffects } from "../SceneEffects";
 import { soundManager } from "../sound/SoundManager";
+import { scaler } from "../main";
+
 
 export class GameScene implements Scene {
     private p: p5;
@@ -65,6 +67,13 @@ export class GameScene implements Scene {
         this.manager.update();
 
         this.p.pop();
+
+        this.display_time(
+            0.5 * scaler.getSize().physical.width,
+            0.03 * scaler.getSize().physical.height, 
+            0.6 * scaler.getSize().physical.width,
+            0.04 * scaler.getSize().physical.width
+        );
     }
 
     make_sound_buttons() {
@@ -87,6 +96,19 @@ export class GameScene implements Scene {
         } else {
             soundManager.playSample("/feedback/yep.mp3");
         }
+    }
+
+    display_time(x: number, y: number, w: number, h: number) {
+
+        const progressWidth = this.p.map(GameState.timeLeft, 0, 100, 0, w); // Calculate the width of the filled portion
+  
+        this.p.fill(100);
+        this.p.rect(x - w / 2, y, w, h, 5); // Draws the bar with rounded corners
+        
+        // Filled progress portion
+        this.p.fill(255, 0, 150);
+        this.p.rect(x - w / 2, y, progressWidth, h, 5);
+                
     }
 
     mousePressed(): void {

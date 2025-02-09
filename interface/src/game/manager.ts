@@ -8,8 +8,6 @@ export class Manager {
     p: p5;
     next_choice: number;
 
-    timeLeft: number = 100;
-
     qh: QueueHandler;
 
     constructor(p: p5) {
@@ -42,7 +40,7 @@ export class Manager {
             this.next_choice = time_offset + this.get_next_choice_time();
         }
 
-        this.timeLeft *= 0.999; 
+        GameState.timeLeft *= 0.999; 
 
     }
 
@@ -60,9 +58,9 @@ export class Manager {
 
         const diff = Math.pow((GameState.bpm / 10) / 3.5, 2)
         if (seq_complete) {
-            this.timeLeft = Math.min(this.timeLeft + diff, 100);
+            GameState.timeLeft = Math.min(GameState.timeLeft + diff, 100);
         } else {
-            this.timeLeft -= diff;
+            GameState.timeLeft -= diff;
         }
 
         return seq_complete;
