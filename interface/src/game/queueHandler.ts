@@ -76,13 +76,15 @@ export class QueueHandler {
             bpm: GameState.bpm,
         };
 
-        fetch(SERVER_URL, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(payload),
-        });
+        setTimeout(() => {
+            fetch(SERVER_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
+            });
+        }, 600)
 
         this.queue.push([THEENUM.Vibrations, beats]);
     }
@@ -147,6 +149,7 @@ export class QueueHandler {
                     if (this.userBeats.length == beatsNeeded) {
 
                         const success = checkVibe(this.userBeats, this.queue[0][1]);
+                        this.queue.shift();
                         this.userBeats = [];
                         return success;
                     } // Can't lose multiple lives in less than a second (i-frames)
