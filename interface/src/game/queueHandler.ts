@@ -76,13 +76,15 @@ export class QueueHandler {
             bpm: GameState.bpm,
         };
 
-        fetch(SERVER_URL, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(payload),
-        });
+        setTimeout(() => {
+            fetch(SERVER_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
+            });
+        }, 600)
 
         this.queue.push([THEENUM.Vibrations, beats]);
     }
