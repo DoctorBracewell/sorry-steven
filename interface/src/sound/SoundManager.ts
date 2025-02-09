@@ -47,11 +47,10 @@ export class SoundManager {
     }
 
     async manageMusic() {
-        const start = await this.playSample("/music/start.wav", 0.6);
+        const start = await this.playSample("/music/start.wav", 0.2);
         start.addEventListener("ended", async () => {
-            const loop = await this.playSample("/music/loop.wav", 0.6, true);
+            const loop = await this.playSample("/music/loop.wav", 0.2, true);
             setInterval(() => {
-                console.log(GameState.bpm);
                 loop.playbackRate.value = (GameState.bpm + 30) / 120;
             }, 100);
         });

@@ -30,6 +30,8 @@ export class QueueHandler {
             GameState.runOutOfTime = true;
         }
 
+        this.queue = [];
+
         if (choice == THEENUM.Vibrations) {
             this.addNewVibration();
             GameState.taskType = THEENUM.Vibrations;
@@ -56,7 +58,7 @@ export class QueueHandler {
             sounds[indexes[i]] = i;
         }
 
-        soundManager.playNotes(sounds, GameState.bpm);
+        setTimeout(() => soundManager.playNotes(sounds, GameState.bpm), 600);
 
         this.queue.push([THEENUM.Sound, sounds]);
     }
