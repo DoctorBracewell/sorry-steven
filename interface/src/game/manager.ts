@@ -13,6 +13,7 @@ export class Manager {
     constructor(p: p5) {
         this.p = p;
         this.next_choice = this.get_next_choice_time();
+        GameState.totalTaskTime = this.next_choice;
         this.qh = new QueueHandler();
     }
 
@@ -38,9 +39,11 @@ export class Manager {
             }
 
             this.next_choice = time_offset + this.get_next_choice_time();
+            GameState.totalTaskTime = this.next_choice - this.secondsPast;
         }
 
-        GameState.timeLeft -= 0.001; 
+        GameState.timeLeft -= 1 / 9; 
+        GameState.timeLeftOnTask = this.next_choice - this.secondsPast;
 
     }
 
@@ -51,9 +54,17 @@ export class Manager {
     }
 
     public send_input(input: any): boolean | null {
-        const seq_complete = this.qh.sendInput(input);
-        if (seq_complete == null) {
-            return null;
+        let seq_complete: boolean;
+        if (input == "we got any time left??" && GameState.runOutOfTime) {
+            seq_complete = false;
+            GameState.runOutOfTime = false;
+        } else {
+
+            const t_seq_complete = this.qh.sendInput(input);
+            if (t_seq_complete == null) {
+                return null;
+            }
+            seq_complete = t_seq_complete;
         }
 
         const diff = Math.pow((GameState.bpm / 10) / 3.5, 2)

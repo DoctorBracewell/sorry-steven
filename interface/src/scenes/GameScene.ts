@@ -101,6 +101,7 @@ export class GameScene implements Scene {
         }
 
         this.manager.update();
+        this.show_result(this.manager.send_input("we got any time left??"));
         if (GameState.timeLeft < 0) {
             this.SM.setScene("end");
         }
@@ -119,7 +120,9 @@ export class GameScene implements Scene {
             0.05 * scaler.getSize().physical.height,
             0.2 * scaler.getSize().physical.width,
             0.05 * scaler.getSize().physical.width,
-            THEENUM.Vibrations // TODO: get Ollie to pass this to me
+            GameState.taskType, // TODO: get Ollie to pass this to me
+            GameState.totalTaskTime,
+            GameState.timeLeftOnTask
         );
     }
 
@@ -150,9 +153,9 @@ export class GameScene implements Scene {
         if (success == null) return;
         if (!success) {
             SceneEffects.setShake(30);
-            soundManager.playSample("/feedback/nope.mp3");
+            soundManager.playSample("/feedback/cut_nope.mp4");
         } else {
-            soundManager.playSample("/feedback/yep.mp3");
+            soundManager.playSample("/feedback/cut_yep.mp4");
         }
     }
 
@@ -160,9 +163,9 @@ export class GameScene implements Scene {
         const progressHeight = this.p.map(GameState.timeLeft, 0, 100, 0, h);
 
         this.p.fill(100);
-        this.p.rect(x - w / 2, y, w, h, 5);
+        this.p.rect(x - w / 2, y, w, h);
 
-        const bottomColor = this.p.color(0, 0, 0); // Red
+        const bottomColor = this.p.color(0, 0, 0); // Black
         const topColor = this.p.color(0, 255, 0); // Green
 
         for (let i = 0; i < progressHeight; i++) {
@@ -170,9 +173,15 @@ export class GameScene implements Scene {
             this.p.stroke(lerpedColor);
             this.p.line(x - w / 2, y + h - i, x + w / 2, y + h - i);
         }
+
+        // black border
+        this.p.fill(0, 0);
+        this.p.stroke(0);
+        this.p.strokeWeight(4);
+        this.p.rect(x - w / 2, y, w, h);
     }
 
-    task_to_sense(task: THEENUM) {
+    task_to_sense(task: THEENUM | null) {
         switch (task) {
             case THEENUM.Sound:
                 return "Listen";
@@ -185,11 +194,24 @@ export class GameScene implements Scene {
         }
     }
 
-    display_task_time(x: number, y: number, w: number, h: number, task: THEENUM) {
+    display_task_time(
+        x: number,
+        y: number,
+        w: number,
+        h: number,
+        task: THEENUM | null,
+        totalTime: number,
+        remainingTime: number
+    ) {
+        if (task == null) {
+            return;
+        }
+
         let sense: string = this.task_to_sense(task);
 
         this.p.fill(100);
-        this.p.rect(x, y, w, h, 5);
+        this.p.noStroke();
+        this.p.rect(x, y, w, h);
 
         let fontSize: number = 100;
         this.p.textSize(fontSize);
@@ -203,10 +225,23 @@ export class GameScene implements Scene {
             this.p.textSize(fontSize);
         }
 
+        for (let i = 0; i < w * (remainingTime / totalTime); i++) {
+            this.p.strokeWeight(1);
+            this.p.stroke(54, 150, 191);
+            this.p.line(x + i, y, x + i, y + h);
+        }
+
+        // write the sense of the current task
         this.p.textAlign(this.p.CENTER, this.p.CENTER);
-        this.p.fill(0);
-        this.p.stroke(0);
+        this.p.fill(255);
+        this.p.noStroke();
         this.p.text(sense, x + w / 2, y + h / 2);
+
+        // black border
+        this.p.fill(0, 0);
+        this.p.stroke(0);
+        this.p.strokeWeight(4);
+        this.p.rect(x, y, w, h);
     }
 
     mousePressed(): void {
