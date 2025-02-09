@@ -23,6 +23,7 @@ export class GameScene implements Scene {
 
     private vibe_img: p5.Image | null = null;
     private vibe_img_pressed: p5.Image | null = null;
+    private colour_button_images: { [key: string]: p5.Image | null } = {};
 
     constructor(p: p5, sceneManager: SceneManager) {
         this.p = p;
@@ -40,17 +41,21 @@ export class GameScene implements Scene {
         // create buttons
         let index = 0;
         for (const c in Colours) {
+            console.log(`${Colours[c as keyof typeof Colours]}_high`);
             this.colour_buttons.push(
                 new Button(
                     this.p,
-                    scaler.getSize().physical.width * 0.35 +
-                        index * scaler.getSize().physical.width * 0.08,
+                    scaler.getSize().physical.width * 0.35 + index * scaler.getSize().physical.width * 0.08,
                     scaler.getSize().physical.height * 0.25,
                     scaler.getSize().physical.width * 0.06,
                     scaler.getSize().physical.width * 0.06,
-                    10,
+                    0,
                     Colours[c as keyof typeof Colours],
-                    true
+                    false,
+                    false,
+                    null,
+                    this.colour_button_images[`${Colours[c as keyof typeof Colours]}_high`],
+                    this.colour_button_images[`${Colours[c as keyof typeof Colours]}_pressed`],
                 )
             );
             index++;
@@ -77,6 +82,14 @@ export class GameScene implements Scene {
     preload(): void {
         this.vibe_img = this.p.loadImage("/interface/button.png");
         this.vibe_img_pressed = this.p.loadImage("/interface/button_depressed.png");
+
+        for (const colour of Object.values(Colours)) {
+            for (const press_state of ["high", "pressed"]) {
+                this.colour_button_images[`${colour}_${press_state}`] = this.p.loadImage(`/interface/${colour}_${press_state}.png`);
+            }
+        }
+
+
     }
 
     draw(): void {
