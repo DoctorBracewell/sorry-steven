@@ -1,14 +1,9 @@
 import { SERVER_URL } from "../constants";
 import { soundManager } from "../sound/SoundManager";
-import { Colours, GameState } from "./gameState";
+import { Colours, THEENUM, GameState } from "./gameState";
 import { checkVibe } from "./vibrationChecker";
 import { SceneEffects } from "../SceneEffects";
 
-export enum THEENUM {
-    Sound,
-    Colours,
-    Vibrations,
-}
 
 function shuffleArray<T>(array: T[]): T[] {
     for (let i = array.length - 1; i > 0; i--) {

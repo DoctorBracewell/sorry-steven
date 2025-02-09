@@ -1,6 +1,6 @@
 import p5 from "p5";
-import { GameState } from "./gameState";
-import { QueueHandler, THEENUM } from "./queueHandler";
+import { GameState, THEENUM } from "./gameState";
+import { QueueHandler } from "./queueHandler";
 
 export class Manager {
 
