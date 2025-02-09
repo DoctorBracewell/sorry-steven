@@ -120,7 +120,7 @@ export class GameScene implements Scene {
             0.05 * scaler.getSize().physical.width,
             GameState.taskType, // TODO: get Ollie to pass this to me
             GameState.totalTaskTime,
-            GameState.timeLeft
+            GameState.timeLeftOnTask
         )
     }
 
@@ -161,7 +161,7 @@ export class GameScene implements Scene {
         const progressHeight = this.p.map(GameState.timeLeft, 0, 100, 0, h);
 
         this.p.fill(100);
-        this.p.rect(x - w / 2, y, w, h, 15);
+        this.p.rect(x - w / 2, y, w, h);
 
         const bottomColor = this.p.color(0, 0, 0); // Black
         const topColor = this.p.color(0, 255, 0); // Green
@@ -171,6 +171,12 @@ export class GameScene implements Scene {
             this.p.stroke(lerpedColor);
             this.p.line(x - w / 2, y + h - i, x + w / 2, y + h - i);
         }
+
+        // black border
+        this.p.fill(0, 0);
+        this.p.stroke(0);
+        this.p.strokeWeight(4);
+        this.p.rect(x - w / 2, y, w, h);
     }
 
     task_to_sense(task: THEENUM | null) {
@@ -187,12 +193,15 @@ export class GameScene implements Scene {
     }
 
     display_task_time(x: number, y: number, w: number, h: number, task: THEENUM | null, totalTime: number, remainingTime: number) {
+        if (task == null) {
+            return;
+        }
+
         let sense: string = this.task_to_sense(task);
 
         this.p.fill(100);
-        this.p.stroke(0);
-        this.p.strokeWeight(6);
-        this.p.rect(x, y, w, h, 15);
+        this.p.noStroke();
+        this.p.rect(x, y, w, h);
 
         let fontSize: number = 100;
         this.p.textSize(fontSize);
@@ -203,14 +212,23 @@ export class GameScene implements Scene {
             this.p.textSize(fontSize);
         }
 
-
+        for (let i = 0; i < (w * (remainingTime / totalTime)); i++) {
+            this.p.strokeWeight(1);
+            this.p.stroke(54, 150, 191);
+            this.p.line(x + i, y, x + i, y + h);
+        }
 
         // write the sense of the current task
         this.p.textAlign(this.p.CENTER, this.p.CENTER)
-        this.p.fill(0);
-        this.p.stroke(0);
-        this.p.strokeWeight(1);
+        this.p.fill(255);
+        this.p.noStroke();
         this.p.text(sense, x + w / 2, y + h / 2);
+
+        // black border
+        this.p.fill(0, 0);
+        this.p.stroke(0);
+        this.p.strokeWeight(4);
+        this.p.rect(x, y, w, h);
     }
 
     mousePressed(): void {
