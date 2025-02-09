@@ -128,7 +128,7 @@ export class GameScene implements Scene {
 
     make_sound_buttons() {
         for (let i = 0; i < GameState.soundCounts; i++) {
-            for (let j = 0; j < GameState.soundTypeCount; j++) {
+            for (let j = GameState.soundTypeCount - 1; j >= 0; j--) {
                 this.sound_buttons.push(
                     new Button(
                         this.p,

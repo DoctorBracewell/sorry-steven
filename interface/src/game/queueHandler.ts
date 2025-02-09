@@ -95,9 +95,12 @@ export class QueueHandler {
         }
 
         // Send colours
-        SceneEffects.colourSequence = [...colours];
-        SceneEffects.bpm = GameState.bpm;
-        SceneEffects.resetIntensity();
+        setTimeout(() => {
+            SceneEffects.colourSequence = [...colours];
+            SceneEffects.bpm = GameState.bpm;
+            SceneEffects.resetIntensity();
+        }, 600)
+        
 
         this.queue.push([THEENUM.Colours, colours]);
     }

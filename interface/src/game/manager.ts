@@ -8,6 +8,8 @@ export class Manager {
     p: p5;
     next_choice: number;
 
+    move_on: boolean;
+
     qh: QueueHandler;
 
     constructor(p: p5) {
@@ -15,6 +17,7 @@ export class Manager {
         this.next_choice = this.get_next_choice_time();
         GameState.totalTaskTime = this.next_choice;
         this.qh = new QueueHandler();
+        this.move_on = false;
     }
 
     update(): void {
@@ -25,13 +28,14 @@ export class Manager {
         this.secondsPast += this.p.deltaTime / 1000;
         GameState.setBPM(this.secondsPast);
 
-        if (this.next_choice < this.secondsPast) {
+        if (this.next_choice < this.secondsPast || this.move_on) {
+            this.move_on = false;
 
             const choiceType = this.qh.sendNewChoice();
 
             let time_offset: number = 0;
             if (choiceType == THEENUM.Colours) {
-                time_offset = 240 / GameState.bpm; // To change
+                time_offset = 60 / GameState.bpm + 0.6; // To change
             } else if (choiceType == THEENUM.Vibrations) {
                 time_offset = 240 / GameState.bpm;
             } else {
@@ -49,11 +53,12 @@ export class Manager {
 
     get_next_choice_time(): number {
 
-        return this.secondsPast + Math.max(3 - GameState.bpm / 80, 0) + Math.random();
+        return this.secondsPast + Math.max(2 * (3 - GameState.bpm / 80), 0) + Math.random();
 
     }
 
     public send_input(input: any): boolean | null {
+        console.log(GameState.runOutOfTime)
         let seq_complete: boolean;
         if (input == "we got any time left??") {
             if (!GameState.runOutOfTime) {
@@ -68,7 +73,8 @@ export class Manager {
                 return null;
             }
             seq_complete = t_seq_complete;
-            console.log(input);
+            this.move_on = true;
+
         }
 
         const diff = Math.pow((GameState.bpm / 10) / 3.5, 2)
