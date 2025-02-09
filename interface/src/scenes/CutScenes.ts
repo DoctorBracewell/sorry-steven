@@ -1,6 +1,7 @@
 import p5 from "p5";
 import { SceneManager, Scene } from "../SceneManager";
 import { scaler } from "../main";
+import { soundManager } from "../sound/SoundManager";
 
 export class CutScene implements Scene {
     private p: p5;
@@ -10,12 +11,14 @@ export class CutScene implements Scene {
     private changeInterval: number = 5000;
     private lastChangeTime: number = 0;
     private next: string = "";
+    private sound: string;
 
-    constructor(p: p5, sceneManager: SceneManager, image: string, next: string) {
+    constructor(p: p5, sceneManager: SceneManager, image: string, next: string, sound: string) {
         this.p = p;
         this.SM = sceneManager;
         this.image_path = image;
         this.next = next;
+        this.sound = sound;
     }
 
     preload(): void {
@@ -24,6 +27,10 @@ export class CutScene implements Scene {
 
     setup(): void {
         this.lastChangeTime = this.p.millis();
+
+        setTimeout(() => {
+            soundManager.playSample(this.sound);
+        }, 1000);
     }
 
     draw(): void {

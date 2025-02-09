@@ -27,19 +27,37 @@ const sketch = (p: p5) => {
         sceneManager = new SceneManager(p);
         sceneManager.addScene("intro", new IntroScene(p, sceneManager));
         sceneManager.addScene("game", new GameScene(p, sceneManager));
-        sceneManager.addScene('end', new EndScene(p))
+        sceneManager.addScene("end", new EndScene(p));
 
         sceneManager.addScene(
             "cutscene1",
-            new CutScene(p, sceneManager, "/cutscenes/Cutscene_1.png", "cutscene2")
+            new CutScene(
+                p,
+                sceneManager,
+                "/cutscenes/Cutscene_1.png",
+                "cutscene2",
+                "/voice/so_much_work_todo.wav"
+            )
         );
         sceneManager.addScene(
             "cutscene2",
-            new CutScene(p, sceneManager, "/cutscenes/Cutscene_2.png", "cutscene3")
+            new CutScene(
+                p,
+                sceneManager,
+                "/cutscenes/Cutscene_2.png",
+                "cutscene3",
+                "/voice/finally_time_to_go_home.wav"
+            )
         );
         sceneManager.addScene(
             "cutscene3",
-            new CutScene(p, sceneManager, "/cutscenes/Cutscene_3.png", "intro")
+            new CutScene(
+                p,
+                sceneManager,
+                "/cutscenes/Cutscene_3.png",
+                "game",
+                "voice/hmm_what_to_watch_on_tv.wav"
+            )
         );
 
         sceneManager.setScene("game");
