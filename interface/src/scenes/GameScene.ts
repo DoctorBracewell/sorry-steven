@@ -48,7 +48,7 @@ export class GameScene implements Scene {
                     this.p,
                     scaler.getSize().physical.width * 0.38 +
                         index * scaler.getSize().physical.width * 0.08,
-                    scaler.getSize().physical.height * 0.28,
+                    scaler.getSize().physical.height * 0.37,
                     scaler.getSize().physical.width * 0.06,
                     scaler.getSize().physical.width * 0.06,
                     0,
@@ -66,7 +66,7 @@ export class GameScene implements Scene {
         this.vibration_button = new Button(
             this.p,
             scaler.getSize().physical.width / 2,
-            scaler.getSize().physical.height * 0.1,
+            scaler.getSize().physical.height * 0.2,
             scaler.getSize().physical.width * 0.1,
             scaler.getSize().physical.width * 0.1,
             0,
@@ -172,8 +172,8 @@ export class GameScene implements Scene {
                 this.sound_buttons.push(
                     new Button(
                         this.p,
-                        scaler.getSize().physical.width * 0.415 + i * scaler.getSize().physical.width * 0.06,
-                        scaler.getSize().physical.height * 0.46 - scaler.getSize().physical.height * 0.08 * j,
+                        scaler.getSize().physical.width * 0.44 + i * scaler.getSize().physical.width * 0.06,
+                        scaler.getSize().physical.height * 0.57 - scaler.getSize().physical.height * 0.08 * j,
                         scaler.getSize().physical.width * 0.05,
                         scaler.getSize().physical.width * 0.04,
                         0,
