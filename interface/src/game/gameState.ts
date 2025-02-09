@@ -22,6 +22,8 @@ export class GameState {
     public static pause: boolean = false;
 
     public static timeLeft: number = 100;
+    public static totalTaskTime: number = 100;
+    public static timeLeftOnTask: number = 100;
 
     public static setBPM(t: number) {
         console.log(t);

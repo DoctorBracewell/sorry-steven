@@ -13,6 +13,7 @@ export class Manager {
     constructor(p: p5) {
         this.p = p;
         this.next_choice = this.get_next_choice_time();
+        GameState.totalTaskTime = this.next_choice;
         this.qh = new QueueHandler();
     }
 
@@ -38,9 +39,11 @@ export class Manager {
             }
 
             this.next_choice = time_offset + this.get_next_choice_time();
+            GameState.totalTaskTime = this.next_choice - this.secondsPast;
         }
 
         GameState.timeLeft -= 0.001; 
+        GameState.timeLeftOnTask = this.next_choice - this.secondsPast;
 
     }
 
