@@ -27,7 +27,9 @@ export class QueueHandler {
 
         const choice = choices[Math.floor(Math.random() * choices.length)];
 
-        this.queue = [];
+        if (this.queue.length > 0) {
+            GameState.runOutOfTime = true;
+        }
 
         if (choice == THEENUM.Vibrations) {
             this.addNewVibration();
