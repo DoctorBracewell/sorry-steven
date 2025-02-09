@@ -62,22 +62,12 @@ const sketch = (p: p5) => {
 
         sceneManager.addScene(
             "sorry",
-            new CutScene(
-                p,
-                sceneManager,
-                "/interface/end_1.png",
-                "score",
-            )
-        )
+            new CutScene(p, sceneManager, "/interface/end_1.png", "score")
+        );
 
-        sceneManager.addScene(
-            "score",
-            new ScoreScene(
-                p
-            )
-        )
+        sceneManager.addScene("score", new ScoreScene(p));
 
-        sceneManager.setScene("game");
+        sceneManager.setScene("cutscene1");
     };
 
     p.draw = () => {
