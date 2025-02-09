@@ -25,7 +25,7 @@ const sketch = (p: p5) => {
         sceneManager = new SceneManager(p);
         sceneManager.addScene("intro", new IntroScene(p, sceneManager));
         sceneManager.addScene("game", new GameScene(p, sceneManager));
-        sceneManager.addScene('end', new EndScene(p, sceneManager))
+        sceneManager.addScene('end', new EndScene(p))
 
         sceneManager.addScene(
             "cutscene1",
@@ -40,7 +40,7 @@ const sketch = (p: p5) => {
             new CutScene(p, sceneManager, "/cutscenes/Cutscene_3.png", "intro")
         );
 
-        sceneManager.setScene("end");
+        sceneManager.setScene("game");
     };
 
     p.draw = () => {
