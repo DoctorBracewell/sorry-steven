@@ -23,10 +23,10 @@ export class GameState {
 
     public static timeLeft: number = 100;
     public static totalTaskTime: number = 100;
-    public static timeLeftOnTask: number = 100;
+    public static timeLeftOnTask: number = 100
+    public static taskType: THEENUM;
 
     public static setBPM(t: number) {
-        console.log(t);
         if (t < 35) {
             this.bpm = 90;
         } else if (t < 50) {
