@@ -40,7 +40,7 @@ const sketch = (p: p5) => {
             new CutScene(p, sceneManager, "/cutscenes/cutscene_3.png", "intro")
         );
 
-        sceneManager.setScene("cutscene1");
+        sceneManager.setScene("game");
     };
 
     p.draw = () => {
@@ -54,6 +54,7 @@ const sketch = (p: p5) => {
     p.touchStarted = () => {
         sceneManager.handleMousePressed();
     };
+
 };
 
 document.querySelector("#start")!.addEventListener("click", () => {

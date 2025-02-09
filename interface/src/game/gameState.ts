@@ -17,7 +17,7 @@ export class GameState {
 
     public static pause: boolean = false;
 
-
+    public static timeLeft: number = 100;
 
     public static setBPM(t: number) {
 
