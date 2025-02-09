@@ -167,10 +167,11 @@ export class GameScene implements Scene {
                 if (this.sound_input[i] == -1) {
                     this.sound_input[i] = j;
                     btn.setColour(Colours.Green);
+
                     if (!this.sound_input.some((num) => num == -1)) {
                         this.show_result(this.manager.send_input(this.sound_input));
-                        this.sound_input = this.sound_input.fill(-1);
-                        setInterval(
+                        this.sound_input.fill(-1);
+                        setTimeout(
                             () => this.sound_buttons.forEach((btn) => btn.setColour(Colours.Red)),
                             200
                         );
