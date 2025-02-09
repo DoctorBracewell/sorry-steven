@@ -8,7 +8,7 @@ export class EndScene implements Scene {
 
     constructor(p: p5) {
         this.p = p;
-        this.image = this.p.loadImage("/interface/END 1.png");
+        this.image = this.p.loadImage("/interface/end_1.png");
     }
 
     setup(): void {
