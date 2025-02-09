@@ -98,6 +98,9 @@ export class GameScene implements Scene {
         }
 
         this.manager.update();
+        if (GameState.timeLeft < 0) {
+            this.SM.setScene('end');
+        }
 
         this.p.pop();
 

@@ -40,7 +40,7 @@ export class Manager {
             this.next_choice = time_offset + this.get_next_choice_time();
         }
 
-        GameState.timeLeft *= 0.999; 
+        GameState.timeLeft -= 0.001; 
 
     }
 
