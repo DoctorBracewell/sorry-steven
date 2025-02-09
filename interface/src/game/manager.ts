@@ -35,7 +35,7 @@ export class Manager {
 
             let time_offset: number = 0;
             if (choiceType == THEENUM.Colours) {
-                time_offset = 60 / GameState.bpm; // To change
+                time_offset = 60 / GameState.bpm + 0.6; // To change
             } else if (choiceType == THEENUM.Vibrations) {
                 time_offset = 240 / GameState.bpm;
             } else {
