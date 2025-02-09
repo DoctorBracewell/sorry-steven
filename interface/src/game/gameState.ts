@@ -31,9 +31,6 @@ export class GameState {
     public static score: number;
 
     public static setBPM(t: number) {
-        console.log(t);
-        console.log(this.bpm);
-
         if (t < 19.6) {
             this.bpm = 90;
         } else if (t < 50) {
@@ -46,7 +43,6 @@ export class GameState {
     }
 
     public static setScore() {
-        console.log(this.bpm);
         this.score = Math.floor((this.bpm - 90) * 1000);
     }
 }

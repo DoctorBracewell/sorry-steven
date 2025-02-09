@@ -24,6 +24,8 @@ export class GameScene implements Scene {
     private vibe_img: p5.Image | null = null;
     private vibe_img_pressed: p5.Image | null = null;
     private colour_button_images: { [key: string]: p5.Image | null } = {};
+    private music_img: p5.Image | null = null;
+    private music_img_pressed: p5.Image | null = null;
 
     constructor(p: p5, sceneManager: SceneManager) {
         this.p = p;
@@ -41,7 +43,6 @@ export class GameScene implements Scene {
         // create buttons
         let index = 0;
         for (const c in Colours) {
-            console.log(`${Colours[c as keyof typeof Colours]}_high`);
             this.colour_buttons.push(
                 new Button(
                     this.p,
@@ -91,6 +92,9 @@ export class GameScene implements Scene {
                 );
             }
         }
+
+        this.music_img = this.p.loadImage("/interface/music_button_high.png");
+        this.music_img_pressed = this.p.loadImage("/interface/music_button_pressed.png")
     }
 
     draw(): void {
@@ -168,17 +172,17 @@ export class GameScene implements Scene {
                 this.sound_buttons.push(
                     new Button(
                         this.p,
-                        scaler.getSize().physical.width * 0.415 +
-                            i * scaler.getSize().physical.width * 0.06,
-                        scaler.getSize().physical.height * 0.46 -
-                            scaler.getSize().physical.height * 0.08 * j,
+                        scaler.getSize().physical.width * 0.415 + i * scaler.getSize().physical.width * 0.06,
+                        scaler.getSize().physical.height * 0.46 - scaler.getSize().physical.height * 0.08 * j,
                         scaler.getSize().physical.width * 0.05,
                         scaler.getSize().physical.width * 0.04,
                         0,
                         Colours.Red,
-                        true,
                         false,
-                        [i, j]
+                        false,
+                        [i, j],
+                        this.music_img,
+                        this.music_img_pressed
                     )
                 );
             }
@@ -305,13 +309,13 @@ export class GameScene implements Scene {
                 const [i, j] = btn.data;
                 if (this.sound_input[i] == -1) {
                     this.sound_input[i] = j;
-                    btn.setColour(Colours.Green);
+                    btn.changeImage(true, false);
 
                     if (!this.sound_input.some((num) => num == -1)) {
                         this.show_result(this.manager.send_input(this.sound_input));
                         this.sound_input.fill(-1);
                         setTimeout(
-                            () => this.sound_buttons.forEach((btn) => btn.setColour(Colours.Red)),
+                            () => this.sound_buttons.forEach((btn) => btn.changeImage(false, true)),
                             200
                         );
                     }
