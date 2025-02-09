@@ -25,6 +25,7 @@ export class Button {
     public hovered: boolean;
 
     public data: any;
+    private img_copy: p5.Image | null;
     private img: p5.Image | null;
     private pressedImg: p5.Image | null;
 
@@ -64,6 +65,7 @@ export class Button {
 
         this.data = data;
         this.img = img;
+        this.img_copy = img;
         this.pressedImg = pressedImg;
     }
 
@@ -89,6 +91,18 @@ export class Button {
         }
 
         this.p.fill(this.colour);
+    }
+
+    changeImage(pressed: boolean, reset: boolean) {
+        if (reset) {
+            this.img = this.img_copy
+            return;
+        }
+        
+        if (pressed) {
+            this.img = this.pressedImg;
+            return;
+        }
     }
 
     draw(pressed: boolean) {
