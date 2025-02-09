@@ -1,12 +1,10 @@
-
-
 export enum Colours {
     Red = "RED",
     Yellow = "YELLOW",
     Pink = "PINK",
-    Green = "GREEN"
+    Green = "GREEN",
 }
-  
+
 export class GameState {
     public static bpm: number = 135;
     public static onBeatCount: number = 4;
@@ -20,16 +18,15 @@ export class GameState {
     public static timeLeft: number = 100;
 
     public static setBPM(t: number) {
-
-        if (t < 50) {
-            this.bpm = 90 + 1/5 * t;
+        console.log(t);
+        if (t < 35) {
+            this.bpm = 90;
+        } else if (t < 50) {
+            this.bpm = 90 + (1 / 5) * (t - 35);
         } else if (t < 120) {
-            this.bpm = 100 + 1/3.5 * (t - 50)
+            this.bpm = 100 + (1 / 3.5) * (t - 35 - 50);
         } else {
-            this.bpm = 120 + 1/2 * (t - 120)
+            this.bpm = 120 + (1 / 2) * (t - 35 - 120);
         }
-
     }
-
 }
-  
