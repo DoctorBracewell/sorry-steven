@@ -230,7 +230,7 @@ export class GameScene implements Scene {
 
         if (this.vibration_button!.mouseOverButton()) {
             this.vibration_button!.draw(true);
-            // this.show_result(this.manager.send_input(this.vibration_button.getColour()));
+            this.show_result(this.manager.send_input(" "));
         }
     }
 
