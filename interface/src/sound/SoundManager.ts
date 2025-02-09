@@ -26,6 +26,11 @@ export class SoundManager {
 
         // Start playback
         source.start();
+        return new Promise<void>((resolve) => {
+            source.onended = () => {
+                resolve();
+            };
+        });
     }
 
     async playNotes(notes: number[], bpm: number) {
