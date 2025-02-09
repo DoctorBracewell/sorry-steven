@@ -30,6 +30,6 @@ export function checkVibe(userBeats: number[], beats: number[]) {
 
     }
 
-    return min_score < 1.5;
+    return min_score < 1.8;
 
 }
