@@ -8,7 +8,7 @@ export enum Colours {
 export enum THEENUM {
     Sound,
     Colours,
-    Vibrations,
+    Vibrations
 }
 
 export class GameState {

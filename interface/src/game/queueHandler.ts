@@ -18,7 +18,6 @@ export class QueueHandler {
 
     private userBeats: number[] = [];
 
-
     constructor() {}
 
     public sendNewChoice(): THEENUM {
