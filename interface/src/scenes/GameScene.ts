@@ -118,8 +118,9 @@ export class GameScene implements Scene {
             0.05 * scaler.getSize().physical.height,
             0.2 * scaler.getSize().physical.width,
             0.05 * scaler.getSize().physical.width,
-            THEENUM.Vibrations, // TODO: get Ollie to pass this to me
-            GameState.timeLeft // TODO: get Ollie to deal with this
+            GameState.taskType, // TODO: get Ollie to pass this to me
+            GameState.totalTaskTime,
+            GameState.timeLeft
         )
     }
 
@@ -172,7 +173,7 @@ export class GameScene implements Scene {
         }
     }
 
-    task_to_sense(task: THEENUM) {
+    task_to_sense(task: THEENUM | null) {
         switch (task) {
             case THEENUM.Sound:
                 return "Listen";
@@ -185,7 +186,7 @@ export class GameScene implements Scene {
         }
     }
 
-    display_task_time(x: number, y: number, w: number, h: number, task: THEENUM, remainingTime: number) {
+    display_task_time(x: number, y: number, w: number, h: number, task: THEENUM | null, totalTime: number, remainingTime: number) {
         let sense: string = this.task_to_sense(task);
 
         this.p.fill(100);
