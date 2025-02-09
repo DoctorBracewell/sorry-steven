@@ -27,6 +27,8 @@ export class QueueHandler {
 
         const choice = choices[Math.floor(Math.random() * choices.length)];
 
+        this.queue = [];
+
         if (choice == THEENUM.Vibrations) {
             this.addNewVibration();
             GameState.taskType = THEENUM.Vibrations;
