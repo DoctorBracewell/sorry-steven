@@ -27,6 +27,8 @@ export class Button {
     public hovered: boolean;
 
     public data: any;
+    private image: string;
+    private img: p5.Image;
 
     constructor(
         p: p5,
@@ -38,7 +40,8 @@ export class Button {
         colour: Colours,
         hasBorder: boolean,
         hasScale: boolean = true,
-        data: any = null
+        data: any = null,
+        image: string = ""
     ) {
         this.p = p;
 
@@ -61,6 +64,8 @@ export class Button {
         this.hovered = false;
 
         this.data = data;
+        this.image = image;
+        this.img = this.p.loadImage(this.image);
     }
 
     applyBorderLogic(pressed: boolean) {
@@ -88,17 +93,22 @@ export class Button {
     }
 
     draw(pressed: boolean) {
-        this.p.strokeWeight(0);
-        this.hovered = this.mouseOverButton();
+        if (this.image === "") {
+            this.p.strokeWeight(0);
+            this.hovered = this.mouseOverButton();
 
-        if (this.hasBorder) {
-            this.applyBorderLogic(pressed);
-        }
+            if (this.hasBorder) {
+                this.applyBorderLogic(pressed);
+            }
 
-        if (this.mouseOverButton() && !pressed && this.hasScale) {
-            this.p.rect(this.scaledX, this.scaledY, this.scaledW, this.scaledH, this.r);
+            if (this.mouseOverButton() && !pressed && this.hasScale) {
+                this.p.rect(this.scaledX, this.scaledY, this.scaledW, this.scaledH, this.r);
+            } else {
+                this.p.rect(this.x, this.y, this.w, this.h, 10);
+            }
         } else {
-            this.p.rect(this.x, this.y, this.w, this.h, 10);
+            this.p.imageMode(this.p.CENTER);
+            this.p.image(this.img, this.x, this.y, this.w, this.h);
         }
     }
 
