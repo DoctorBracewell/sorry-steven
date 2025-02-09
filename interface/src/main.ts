@@ -2,7 +2,6 @@ import p5 from "p5";
 import { SceneManager } from "./SceneManager";
 import { IntroScene, GameScene, CutScene, EndScene } from "./scenes";
 import * as p5s from "@fal-works/p5-scaler";
-import "./style.css";
 import { FPS } from "./constants";
 import { SceneEffects } from "./SceneEffects";
 import { GameState } from "./game/gameState";

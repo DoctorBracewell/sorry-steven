@@ -8,7 +8,7 @@ export enum Colours {
 export enum THEENUM {
     Sound,
     Colours,
-    Vibrations
+    Vibrations,
 }
 
 export class GameState {
@@ -23,20 +23,23 @@ export class GameState {
 
     public static timeLeft: number = 100;
     public static totalTaskTime: number = 100;
-    public static timeLeftOnTask: number = 100
+    public static timeLeftOnTask: number = 100;
     public static taskType: THEENUM;
 
     public static runOutOfTime: boolean;
 
     public static setBPM(t: number) {
-        if (t < 35) {
+        console.log(t);
+        console.log(this.bpm);
+
+        if (t < 19.6) {
             this.bpm = 90;
         } else if (t < 50) {
-            this.bpm = 90 + (1 / 5) * (t - 35);
+            this.bpm = 90 + (1 / 5) * (t - 19.6);
         } else if (t < 120) {
-            this.bpm = 100 + (1 / 3.5) * (t - 35 - 50);
+            this.bpm = 100 + (1 / 3.5) * (t - 19.6 - 50);
         } else {
-            this.bpm = 120 + (1 / 2) * (t - 35 - 120);
+            this.bpm = 120 + (1 / 2) * (t - 19.6 - 120);
         }
     }
 }
