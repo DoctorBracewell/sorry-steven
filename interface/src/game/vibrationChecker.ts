@@ -28,12 +28,7 @@ export function checkVibe(userBeats: number[], beats: number[]) {
             min_score = score;
         }
 
-        console.log(relative);
-        console.log(realSpaces)
-
     }
-
-    console.log(min_score, )
 
     return min_score < 1.5;
 

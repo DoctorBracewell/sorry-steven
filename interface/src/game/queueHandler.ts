@@ -34,16 +34,16 @@ export class QueueHandler {
 
         const choice = choices[Math.floor(Math.random() * choices.length)];
 
-        // if (choice == THEENUM.Vibrations) {
+        if (choice == THEENUM.Vibrations) {
             this.addNewVibration();
             this.previousChoice = THEENUM.Vibrations;
-        // } else if (choice == THEENUM.Colours) {
-        //     this.addNewColours();
-        //     this.previousChoice = THEENUM.Colours;
-        // } else if (choice == THEENUM.Sound) {
-        //     this.addNewSounds();
-        //     this.previousChoice = THEENUM.Sound;
-        // }
+        } else if (choice == THEENUM.Colours) {
+            this.addNewColours();
+            this.previousChoice = THEENUM.Colours;
+        } else if (choice == THEENUM.Sound) {
+            this.addNewSounds();
+            this.previousChoice = THEENUM.Sound;
+        }
 
         return this.previousChoice;
     }
