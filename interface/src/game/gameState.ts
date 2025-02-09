@@ -35,7 +35,7 @@ export class GameState {
             this.bpm = 90;
         } else if (t < 50) {
             this.bpm = 90 + (1 / 4) * (t - 19.6);
-        } else if (t < 120) {
+        } else {
             this.bpm = 100 + (t - 19.6 - 50);
         }
     }
