@@ -13,7 +13,7 @@ const ColourRGBs: Record<Colours, [number, number, number]> = {
 export class SceneEffects {
     private static shakeAmount = 0;
 
-    public static p:p5;
+    public static p: p5;
     public static colour_intensity = 0;
     public static colourSequence: Colours[] = [];
     public static bpm: number = 90;
@@ -53,23 +53,27 @@ export class SceneEffects {
 
         if (this.colour_intensity <= 5) {
             this.colourSequence.shift();
-            this.resetIntensity()
+            this.resetIntensity();
             return;
         }
 
         for (let y = 0; y < scaler.getSize().physical.height; y++) {
             let alpha = this.p.map(
-                y, 0, scaler.getSize().physical.height, (this.colour_intensity / 100) * 100, (this.colour_intensity / 100) * 250
+                y,
+                0,
+                scaler.getSize().physical.height,
+                (this.colour_intensity / 100) * 100,
+                (this.colour_intensity / 100) * 250
             );
 
             let [r, g, b] = ColourRGBs[c];
 
             this.p.stroke(r, g, b, alpha);
             this.p.strokeWeight(2);
-            this.p.line(0, y, scaler.getSize().physical.width, y);
+            const height = scaler.getSize().physical.height - y;
+            this.p.line(0, height, scaler.getSize().physical.width, height);
         }
 
-        this.colour_intensity = 100 * (1 - ((this.p.millis() - this.startTime) / duration))
-
+        this.colour_intensity = 100 * (1 - (this.p.millis() - this.startTime) / duration);
     }
 }

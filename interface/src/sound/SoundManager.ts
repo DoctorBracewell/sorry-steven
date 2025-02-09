@@ -52,10 +52,18 @@ export class SoundManager {
     async playNotes(notes: number[], bpm: number) {
         const noteLength = 60 / bpm;
 
+        this.currentSFX = true;
+
+        let t = null;
+
         for (const note of notes) {
-            await this.playSample(`/notes/${SoundManager.labelToNote[note]}.mp3`, 1.7);
+            t = await this.playSample(`/notes/${SoundManager.labelToNote[note]}.mp3`, 5);
             await new Promise((r) => setTimeout(r, noteLength * 1000));
         }
+
+        t?.addEventListener("ended", () => {
+            this.currentSFX = false;
+        });
     }
 
     async manageMusic() {
@@ -63,8 +71,14 @@ export class SoundManager {
         start.addEventListener("ended", async () => {
             const loop = await this.playSample("/music/loop.wav", 0.2, true);
 
-            setInterval(async () => {
-                if (!this.currentSFX && Math.random() < 0.05) {
+            const interval = setInterval(async () => {
+                if (GameState.timeLeft < 0) {
+                    loop.stop();
+                    clearInterval(interval);
+                    return;
+                }
+
+                if (!this.currentSFX && Math.random() < 0.003) {
                     this.currentSFX = true;
 
                     const s = await this.playSample(

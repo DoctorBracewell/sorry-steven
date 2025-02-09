@@ -45,7 +45,8 @@ export class GameScene implements Scene {
             this.colour_buttons.push(
                 new Button(
                     this.p,
-                    scaler.getSize().physical.width * 0.35 + index * scaler.getSize().physical.width * 0.08,
+                    scaler.getSize().physical.width * 0.35 +
+                        index * scaler.getSize().physical.width * 0.08,
                     scaler.getSize().physical.height * 0.25,
                     scaler.getSize().physical.width * 0.06,
                     scaler.getSize().physical.width * 0.06,
@@ -55,7 +56,7 @@ export class GameScene implements Scene {
                     false,
                     null,
                     this.colour_button_images[`${Colours[c as keyof typeof Colours]}_high`],
-                    this.colour_button_images[`${Colours[c as keyof typeof Colours]}_pressed`],
+                    this.colour_button_images[`${Colours[c as keyof typeof Colours]}_pressed`]
                 )
             );
             index++;
@@ -85,11 +86,11 @@ export class GameScene implements Scene {
 
         for (const colour of Object.values(Colours)) {
             for (const press_state of ["high", "pressed"]) {
-                this.colour_button_images[`${colour}_${press_state}`] = this.p.loadImage(`/interface/${colour}_${press_state}.png`);
+                this.colour_button_images[`${colour}_${press_state}`] = this.p.loadImage(
+                    `/interface/${colour}_${press_state}.png`
+                );
             }
         }
-
-
     }
 
     draw(): void {
@@ -258,7 +259,7 @@ export class GameScene implements Scene {
 
         let fontSize: number = 100;
         this.p.textSize(fontSize);
-        this.p.textFont("Pixelify Sans");
+        this.p.textFont("Minecraft");
 
         // adjust font size
         while (
