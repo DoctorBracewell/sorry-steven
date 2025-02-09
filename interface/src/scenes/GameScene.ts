@@ -45,8 +45,8 @@ export class GameScene implements Scene {
             this.colour_buttons.push(
                 new Button(
                     this.p,
-                    scaler.getSize().physical.width * 0.35 + index * scaler.getSize().physical.width * 0.08,
-                    scaler.getSize().physical.height * 0.25,
+                    scaler.getSize().physical.width * 0.38 + index * scaler.getSize().physical.width * 0.08,
+                    scaler.getSize().physical.height * 0.28,
                     scaler.getSize().physical.width * 0.06,
                     scaler.getSize().physical.width * 0.06,
                     0,
