@@ -1,10 +1,11 @@
 import p5 from "p5";
 import { SceneManager } from "./SceneManager";
-import { IntroScene, GameScene, CutScene, EndScene } from "./scenes";
+import { IntroScene, GameScene, CutScene } from "./scenes";
 import * as p5s from "@fal-works/p5-scaler";
 import "./style.css";
 import { FPS } from "./constants";
 import { SceneEffects } from "./SceneEffects";
+import { ScoreScene } from "./scenes/ScoreScene";
 
 let sceneManager: SceneManager;
 export const scaler = p5s.fixedRatio({
@@ -27,7 +28,6 @@ const sketch = (p: p5) => {
         sceneManager = new SceneManager(p);
         sceneManager.addScene("intro", new IntroScene(p, sceneManager));
         sceneManager.addScene("game", new GameScene(p, sceneManager));
-        sceneManager.addScene("end", new EndScene(p));
 
         sceneManager.addScene(
             "cutscene1",
@@ -59,6 +59,23 @@ const sketch = (p: p5) => {
                 "voice/hmm_what_to_watch_on_tv.wav"
             )
         );
+
+        sceneManager.addScene(
+            "sorry",
+            new CutScene(
+                p,
+                sceneManager,
+                "/interface/end_1.png",
+                "score",
+            )
+        )
+
+        sceneManager.addScene(
+            "score",
+            new ScoreScene(
+                p
+            )
+        )
 
         sceneManager.setScene("game");
     };
