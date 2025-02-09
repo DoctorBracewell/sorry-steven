@@ -16,8 +16,6 @@ function shuffleArray<T>(array: T[]): T[] {
 export class QueueHandler {
     private queue: [THEENUM, any[]][] = [];
 
-    private previousChoice: THEENUM = THEENUM.Vibrations;
-
     private userBeats: number[] = [];
 
 
@@ -25,22 +23,22 @@ export class QueueHandler {
 
     public sendNewChoice(): THEENUM {
         let possibleChoices = [THEENUM.Sound, THEENUM.Colours, THEENUM.Vibrations];
-        const choices = possibleChoices.filter((choice) => choice !== this.previousChoice);
+        const choices = possibleChoices.filter((choice) => choice !== GameState.taskType);
 
         const choice = choices[Math.floor(Math.random() * choices.length)];
 
         if (choice == THEENUM.Vibrations) {
             this.addNewVibration();
-            this.previousChoice = THEENUM.Vibrations;
+            GameState.taskType = THEENUM.Vibrations;
         } else if (choice == THEENUM.Colours) {
             this.addNewColours();
-            this.previousChoice = THEENUM.Colours;
+            GameState.taskType = THEENUM.Colours;
         } else if (choice == THEENUM.Sound) {
             this.addNewSounds();
-            this.previousChoice = THEENUM.Sound;
+            GameState.taskType = THEENUM.Sound;
         }
 
-        return this.previousChoice;
+        return GameState.taskType;
     }
 
     private addNewSounds() {
