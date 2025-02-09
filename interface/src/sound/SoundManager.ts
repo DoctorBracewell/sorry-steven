@@ -41,7 +41,7 @@ export class SoundManager {
         const noteLength = 60 / bpm;
 
         for (const note of notes) {
-            await this.playSample(`/notes/${SoundManager.labelToNote[note]}.mp3`);
+            await this.playSample(`/notes/${SoundManager.labelToNote[note]}.mp3`, 1.7);
             await new Promise((r) => setTimeout(r, noteLength * 1000));
         }
     }
