@@ -1,6 +1,5 @@
 import p5 from "p5";
-import { Colours, GameState } from "./game/gameState";
-import { CANVAS_WIDTH, CANVAS_HEIGHT, FPS } from "./constants";
+import { Colours } from "./game/gameState";
 import { scaler } from "./main";
 
 const ColourRGBs: Record<Colours, [number, number, number]> = {

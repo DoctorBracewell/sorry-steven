@@ -1,5 +1,5 @@
 import p5 from "p5";
-import { SceneManager, Scene } from "../SceneManager";
+import { Scene } from "../SceneManager";
 import { scaler } from "../main";
 
 export class EndScene implements Scene {
