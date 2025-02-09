@@ -20,6 +20,9 @@ export class GameScene implements Scene {
     private sound_input: number[];
     private sound_buttons: Button[] = [];
 
+    private vibe_img: p5.Image | null = null;
+    private vibe_img_pressed: p5.Image | null = null;
+
     constructor(p: p5, sceneManager: SceneManager) {
         this.p = p;
         this.SM = sceneManager;
@@ -62,11 +65,16 @@ export class GameScene implements Scene {
             false,
             false,
             null,
-            "/interface/button.png",
-            "/interface/button_depressed.png"
+            this.vibe_img,
+            this.vibe_img_pressed
         );
 
         this.make_sound_buttons();
+    }
+
+    preload(): void {
+        this.vibe_img = this.p.loadImage("/interface/button.png");
+        this.vibe_img_pressed = this.p.loadImage("/interface/button_depressed.png");
     }
 
     draw(): void {

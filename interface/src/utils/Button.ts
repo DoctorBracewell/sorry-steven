@@ -21,16 +21,12 @@ export class Button {
 
     private pressTime = 0;
     private pressInProgress = false;
-    private scaleTime = 0;
-    private scaleInProgress = false;
 
     public hovered: boolean;
 
     public data: any;
-    private image: string;
-    private pressedImage: string;
-    private img: p5.Image;
-    private pressedImg: p5.Image;
+    private img: p5.Image | null;
+    private pressedImg: p5.Image | null;
 
     constructor(
         p: p5,
@@ -43,8 +39,8 @@ export class Button {
         hasBorder: boolean,
         hasScale: boolean = true,
         data: any = null,
-        image: string = "",
-        pressedImage: string = ""
+        img: p5.Image | null = null,
+        pressedImg: p5.Image | null = null
     ) {
         this.p = p;
 
@@ -67,10 +63,8 @@ export class Button {
         this.hovered = false;
 
         this.data = data;
-        this.image = image;
-        this.img = this.p.loadImage(this.image);
-        this.pressedImage = pressedImage;
-        this.pressedImg = this.p.loadImage(this.pressedImage);
+        this.img = img;
+        this.pressedImg = pressedImg;
     }
 
     applyBorderLogic(pressed: boolean) {
@@ -100,7 +94,7 @@ export class Button {
     draw(pressed: boolean) {
         this.hovered = this.mouseOverButton();
 
-        if (this.image === "") {
+        if (this.img === null) {
             this.p.strokeWeight(0);
 
             if (this.hasBorder) {
@@ -125,7 +119,9 @@ export class Button {
                 let gap = this.p.millis() - this.pressTime;
 
                 if (gap < 75) {
+                    if (this.pressedImg !== null) {
                     this.p.image(this.pressedImg, this.x, this.y, this.w, this.h);
+                    }
                 } else {
                     this.pressInProgress = false;
                     this.p.image(this.img, this.x, this.y, this.w, this.h);
@@ -138,7 +134,7 @@ export class Button {
 
     public mouseOverButton(): boolean {
         // TODO : make it recognise mouse over scaled button
-        if (this.image === "") {
+        if (this.img === null) {
             return (
                 this.p.mouseX > this.x &&
                 this.p.mouseX < this.x + this.w &&
