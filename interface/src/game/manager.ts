@@ -55,7 +55,10 @@ export class Manager {
 
     public send_input(input: any): boolean | null {
         let seq_complete: boolean;
-        if (input == "we got any time left??" && GameState.runOutOfTime) {
+        if (input == "we got any time left??") {
+            if (!GameState.runOutOfTime) {
+                return null;
+            }
             seq_complete = false;
             GameState.runOutOfTime = false;
         } else {
@@ -65,6 +68,7 @@ export class Manager {
                 return null;
             }
             seq_complete = t_seq_complete;
+            console.log(input);
         }
 
         const diff = Math.pow((GameState.bpm / 10) / 3.5, 2)
