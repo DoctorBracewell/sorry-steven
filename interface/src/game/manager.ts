@@ -3,7 +3,6 @@ import { GameState, THEENUM } from "./gameState";
 import { QueueHandler } from "./queueHandler";
 
 export class Manager {
-
     secondsPast: number = 0;
     p: p5;
     next_choice: number;
@@ -46,19 +45,15 @@ export class Manager {
             GameState.totalTaskTime = this.next_choice - this.secondsPast;
         }
 
-        GameState.timeLeft -= 1 / 18; 
+        GameState.timeLeft -= 1 / 12;
         GameState.timeLeftOnTask = this.next_choice - this.secondsPast;
-
     }
 
     get_next_choice_time(): number {
-
         return this.secondsPast + Math.max(2 * (3 - GameState.bpm / 80), 0) + Math.random();
-
     }
 
     public send_input(input: any): boolean | null {
-
         let seq_complete: boolean;
         if (input == "we got any time left??") {
             if (!GameState.runOutOfTime) {
@@ -67,17 +62,15 @@ export class Manager {
             seq_complete = false;
             GameState.runOutOfTime = false;
         } else {
-
             const t_seq_complete = this.qh.sendInput(input);
             if (t_seq_complete == null) {
                 return null;
             }
             seq_complete = t_seq_complete;
             this.move_on = true;
-
         }
 
-        const diff = Math.pow((GameState.bpm / 10) / 3.5, 2)
+        const diff = Math.pow(GameState.bpm / 10 / 3.5, 2);
         if (seq_complete) {
             GameState.timeLeft = Math.min(GameState.timeLeft + diff, 100);
         } else {
@@ -86,6 +79,4 @@ export class Manager {
 
         return seq_complete;
     }
-
-
 }
