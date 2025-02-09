@@ -30,6 +30,7 @@ export class GameScene implements Scene {
 
     setup(): void {
         soundManager.manageMusic();
+        soundManager.playSample("/voice/is_it_a_colour/mov");
 
         // create buttons
         let index = 0;
@@ -102,7 +103,7 @@ export class GameScene implements Scene {
         this.manager.update();
         this.show_result(this.manager.send_input("we got any time left??"));
         if (GameState.timeLeft < 0) {
-            this.SM.setScene('end');
+            this.SM.setScene("end");
         }
 
         this.p.pop();
@@ -122,7 +123,7 @@ export class GameScene implements Scene {
             GameState.taskType, // TODO: get Ollie to pass this to me
             GameState.totalTaskTime,
             GameState.timeLeftOnTask
-        )
+        );
     }
 
     make_sound_buttons() {
@@ -193,7 +194,15 @@ export class GameScene implements Scene {
         }
     }
 
-    display_task_time(x: number, y: number, w: number, h: number, task: THEENUM | null, totalTime: number, remainingTime: number) {
+    display_task_time(
+        x: number,
+        y: number,
+        w: number,
+        h: number,
+        task: THEENUM | null,
+        totalTime: number,
+        remainingTime: number
+    ) {
         if (task == null) {
             return;
         }
@@ -208,19 +217,22 @@ export class GameScene implements Scene {
         this.p.textSize(fontSize);
 
         // adjust font size
-        while (this.p.textWidth(sense) > w - 10 || this.p.textAscent() + this.p.textDescent() > h - 10) {
+        while (
+            this.p.textWidth(sense) > w - 10 ||
+            this.p.textAscent() + this.p.textDescent() > h - 10
+        ) {
             fontSize--;
             this.p.textSize(fontSize);
         }
 
-        for (let i = 0; i < (w * (remainingTime / totalTime)); i++) {
+        for (let i = 0; i < w * (remainingTime / totalTime); i++) {
             this.p.strokeWeight(1);
             this.p.stroke(54, 150, 191);
             this.p.line(x + i, y, x + i, y + h);
         }
 
         // write the sense of the current task
-        this.p.textAlign(this.p.CENTER, this.p.CENTER)
+        this.p.textAlign(this.p.CENTER, this.p.CENTER);
         this.p.fill(255);
         this.p.noStroke();
         this.p.text(sense, x + w / 2, y + h / 2);
