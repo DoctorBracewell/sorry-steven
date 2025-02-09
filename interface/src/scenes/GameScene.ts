@@ -152,9 +152,9 @@ export class GameScene implements Scene {
         if (success == null) return;
         if (!success) {
             SceneEffects.setShake(30);
-            soundManager.playSample("/feedback/nope.mp3");
+            soundManager.playSample("/feedback/cut_nope.mp4");
         } else {
-            soundManager.playSample("/feedback/yep.mp3");
+            soundManager.playSample("/feedback/cut_yep.mp4");
         }
     }
 
