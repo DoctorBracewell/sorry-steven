@@ -16,6 +16,7 @@ export class GameScene implements Scene {
     private colour_buttons: Button[] = [];
     private vibration_button: Button | null = null;
     private image: p5.Image;
+    private bg: p5.Image;
 
     private sound_input: number[];
     private sound_buttons: Button[] = [];
@@ -26,6 +27,7 @@ export class GameScene implements Scene {
         this.manager = new Manager(p);
         this.sound_input = Array(GameState.soundCounts).fill(-1);
         this.image = this.p.loadImage("/interface/brain_gap.png");
+        this.bg = this.p.loadImage("/interface/background.png");
     }
 
     setup(): void {
@@ -73,6 +75,16 @@ export class GameScene implements Scene {
         this.p.background(255);
 
         this.p.push();
+
+        this.p.imageMode(this.p.CENTER);
+        this.p.image(
+            this.bg,
+            scaler.getSize().physical.width / 2,
+            scaler.getSize().physical.height / 2,
+            this.image.width * (this.p.height / scaler.getSize().logical.height),
+            scaler.getSize().physical.height
+        );
+
         SceneEffects.applyColour();
         SceneEffects.applyShake();
 
