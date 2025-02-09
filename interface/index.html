@@ -1,60 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sorry, Steven!</title>
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background: linear-gradient(180deg, #0d0d0d, #1a1a1a);
-        font-family: 'Arial', sans-serif;
-        overflow: hidden;
-      }
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-      #menu {
-        height: 100%;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap"
+            rel="stylesheet"
+        />
 
-      button#start {
-        font-size: 24px;
-        padding: 15px 40px;
-        border: none;
-        border-radius: 10px;
-        background: linear-gradient(135deg, #ff4d4d, #ff9933);
-        color: white;
-        cursor: pointer;
-        box-shadow: 0 0 20px rgba(255, 77, 77, 0.8);
-        transition: all 0.2s ease-in-out;
-        outline: none;
-      }
+        <title>Sorry, Steven!</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                background: linear-gradient(180deg, #0d0d0d, #1a1a1a);
+                overflow: hidden;
+                font-family: "Pixelify Sans", serif;
+                font-optical-sizing: auto;
+                font-weight: 400;
+                font-style: normal;
+            }
 
-      button#start:hover {
-        background: linear-gradient(135deg, #ff9933, #ffff66);
-        box-shadow: 0 0 30px rgba(255, 255, 102, 1);
-        transform: scale(1.1);
-      }
+            .p5Canvas {
+                display: block;
+                margin: auto;
+            }
 
-      button#start:active {
-        transform: scale(0.95);
-      }
-    </style>
-  </head>
-  <body>
-    <div id="canvas">
-      <div id="menu">
-        <button id="start">Start!</button>
-      </div>
-    </div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+            #menu {
+                height: 100%;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            button#start {
+                font-size: 24px;
+                padding: 15px 40px;
+                border: none;
+                border-radius: 10px;
+                background: linear-gradient(135deg, #ff4d4d, #ff9933);
+                color: white;
+                cursor: pointer;
+                box-shadow: 0 0 20px rgba(255, 77, 77, 0.8);
+                transition: all 0.2s ease-in-out;
+                outline: none;
+                font-family: "Pixelify Sans";
+            }
+
+            button#start:hover {
+                background: linear-gradient(135deg, #ff9933, #ffff66);
+                box-shadow: 0 0 30px rgba(255, 255, 102, 1);
+                transform: scale(1.1);
+            }
+
+            button#start:active {
+                transform: scale(0.95);
+            }
+        </style>
+    </head>
+    <body>
+        <div id="canvas">
+            <div id="menu">
+                <button id="start">Start!</button>
+            </div>
+        </div>
+        <script type="module" src="/src/main.ts"></script>
+    </body>
 </html>

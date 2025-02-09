@@ -8,6 +8,18 @@ export class SoundManager {
         1: "g3",
         3: "c4",
     };
+    private static SFX: string[] = [
+        "help_high",
+        "im_so_stressed",
+        "is_it_a_colour",
+        "is_that_my_phone_ringing",
+        "laugh",
+        "scream_1",
+        "scream_2",
+        "scream_3",
+    ];
+
+    private currentSFX: boolean = false;
 
     public async playSample(url: string, volume: number = 1.0, loop = false) {
         if (this.audioContext.state === "suspended") {
@@ -50,7 +62,25 @@ export class SoundManager {
         const start = await this.playSample("/music/start.wav", 0.2);
         start.addEventListener("ended", async () => {
             const loop = await this.playSample("/music/loop.wav", 0.2, true);
-            setInterval(() => {
+
+            setInterval(async () => {
+                if (!this.currentSFX && Math.random() < 0.05) {
+                    this.currentSFX = true;
+
+                    const s = await this.playSample(
+                        `/voice/${
+                            SoundManager.SFX[
+                                Math.floor(Math.random() * (SoundManager.SFX.length - 1))
+                            ]
+                        }.wav`,
+                        0.2
+                    );
+
+                    s.addEventListener("ended", () => {
+                        this.currentSFX = false;
+                    });
+                }
+
                 loop.playbackRate.value = (GameState.bpm + 30) / 120;
             }, 100);
         });
