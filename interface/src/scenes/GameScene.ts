@@ -165,7 +165,7 @@ export class GameScene implements Scene {
                 this.sound_buttons.push(
                     new Button(
                         this.p,
-                        scaler.getSize().physical.width * 0.385 +
+                        scaler.getSize().physical.width * 0.415 +
                             i * scaler.getSize().physical.width * 0.06,
                         scaler.getSize().physical.height * 0.46 -
                             scaler.getSize().physical.height * 0.08 * j,
