@@ -8,6 +8,7 @@ export class SoundManager {
     };
 
     public async playSample(url: string, volume: number = 1.0) {
+        console.log(this.audioContext)
         const response = await fetch(url);
         const arrayBuffer = await response.arrayBuffer();
         const audioBuffer = await this.audioContext.decodeAudioData(arrayBuffer);
@@ -26,11 +27,6 @@ export class SoundManager {
 
         // Start playback
         source.start();
-        return new Promise<void>((resolve) => {
-            source.onended = () => {
-                resolve();
-            };
-        });
     }
 
     async playNotes(notes: number[], bpm: number) {
