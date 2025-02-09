@@ -11,9 +11,9 @@ export class CutScene implements Scene {
     private changeInterval: number = 5000;
     private lastChangeTime: number = 0;
     private next: string = "";
-    private sound: string;
+    private sound: string | undefined;
 
-    constructor(p: p5, sceneManager: SceneManager, image: string, next: string, sound: string) {
+    constructor(p: p5, sceneManager: SceneManager, image: string, next: string, sound?: string) {
         this.p = p;
         this.SM = sceneManager;
         this.image_path = image;
@@ -29,7 +29,9 @@ export class CutScene implements Scene {
         this.lastChangeTime = this.p.millis();
 
         setTimeout(() => {
-            soundManager.playSample(this.sound);
+            if (this.sound) {
+                soundManager.playSample(this.sound);
+            }
         }, 1000);
     }
 

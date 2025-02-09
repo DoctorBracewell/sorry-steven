@@ -66,6 +66,11 @@ export class SoundManager {
         });
     }
 
+    public ending() {
+        this.playSample("/voice/scream_1.wav");
+        this.playSample("/voice/laugh.wav");
+    }
+
     async manageMusic() {
         const start = await this.playSample("/music/start.wav", 0.2);
         start.addEventListener("ended", async () => {
@@ -78,7 +83,7 @@ export class SoundManager {
                     return;
                 }
 
-                if (!this.currentSFX && Math.random() < 0.003) {
+                if (!this.currentSFX && Math.random() < 0.01) {
                     this.currentSFX = true;
 
                     const s = await this.playSample(

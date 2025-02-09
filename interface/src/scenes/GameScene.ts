@@ -43,7 +43,6 @@ export class GameScene implements Scene {
         // create buttons
         let index = 0;
         for (const c in Colours) {
-            console.log(`${Colours[c as keyof typeof Colours]}_high`);
             this.colour_buttons.push(
                 new Button(
                     this.p,
@@ -142,7 +141,9 @@ export class GameScene implements Scene {
         this.manager.update();
         this.show_result(this.manager.send_input("we got any time left??"));
         if (GameState.timeLeft < 0) {
-            this.SM.setScene("end");
+            soundManager.ending();
+            GameState.setScore();
+            this.SM.setScene("sorry");
         }
 
         this.p.pop();
