@@ -19,6 +19,7 @@ const sketch = (p: p5) => {
     p.setup = () => {
         const canvas = scaler.createCanvas();
         p5s.setParentElement(canvas, "#canvas");
+        scaler.resizeCanvas();
 
         p.frameRate(FPS);
 
@@ -28,7 +29,7 @@ const sketch = (p: p5) => {
 
         sceneManager.addScene(
             "cutscene1",
-            new CutScene(p, sceneManager, "/cutscenes/cutscene_1.png", "cutscene2")
+            new CutScene(p, sceneManager, "/cutscenes/brain_steven.png", "cutscene2")
         );
         sceneManager.addScene(
             "cutscene2",

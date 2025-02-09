@@ -1,5 +1,6 @@
 import p5 from "p5";
 import { SceneManager, Scene } from "../SceneManager";
+import { scaler } from "../main";
 
 export class CutScene implements Scene {
     private p: p5;
@@ -29,14 +30,19 @@ export class CutScene implements Scene {
         this.p.background(0);
 
         if (this.image) {
-
             this.p.imageMode(this.p.CENTER);
-            this.p.image(this.image, this.p.width / 2, this.p.height / 2);
+
+            this.p.image(
+                this.image,
+                scaler.getSize().physical.width / 2,
+                scaler.getSize().physical.height / 2,
+                this.image.width * (this.p.height / scaler.getSize().logical.height),
+                scaler.getSize().physical.height
+            );
 
             if (this.p.millis() - this.lastChangeTime > this.changeInterval) {
                 this.SM.setScene(this.next);
             }
         }
-
     }
 }
