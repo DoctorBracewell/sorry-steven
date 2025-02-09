@@ -41,7 +41,6 @@ export class GameScene implements Scene {
         // create buttons
         let index = 0;
         for (const c in Colours) {
-            console.log(`${Colours[c as keyof typeof Colours]}_high`);
             this.colour_buttons.push(
                 new Button(
                     this.p,
