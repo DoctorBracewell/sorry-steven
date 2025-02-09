@@ -20,12 +20,11 @@ export class ScoreScene implements Scene {
     draw(): void {
         this.p.background(0);
 
-        const score = Math.floor((GameState.bpm - 90) * 1000);
         const { width, height } = scaler.getSize().physical;
 
         this.p.fill(255);
         this.p.textAlign(this.p.CENTER, this.p.CENTER);
         this.p.textSize(64);
-        this.p.text(`Your Score: ${score}`, width / 2, height / 2);
+        this.p.text(`Your Score: ${GameState.score}`, width / 2, height / 2);
     }
 }

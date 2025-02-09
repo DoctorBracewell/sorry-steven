@@ -28,6 +28,8 @@ export class GameState {
 
     public static runOutOfTime: boolean;
 
+    public static score: number;
+
     public static setBPM(t: number) {
         console.log(t);
         console.log(this.bpm);
@@ -41,5 +43,10 @@ export class GameState {
         } else {
             this.bpm = 120 + (1 / 2) * (t - 19.6 - 120);
         }
+    }
+
+    public static setScore() {
+        console.log(this.bpm);
+        this.score = Math.floor((this.bpm - 90) * 1000);
     }
 }
