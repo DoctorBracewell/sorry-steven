@@ -16,7 +16,7 @@ export class GameState {
     public static onBeatCount: number = 4;
     public static beatCount: number = 8;
     public static soundTypeCount: number = 2;
-    public static soundCounts: number = 2;
+    public static soundCounts: number = 3;
     public static coloursCount: number = 2;
 
     public static pause: boolean = false;
