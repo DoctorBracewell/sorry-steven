@@ -46,7 +46,7 @@ export class Manager {
             GameState.totalTaskTime = this.next_choice - this.secondsPast;
         }
 
-        GameState.timeLeft -= 1 / 9; 
+        GameState.timeLeft -= 1 / 18; 
         GameState.timeLeftOnTask = this.next_choice - this.secondsPast;
 
     }
