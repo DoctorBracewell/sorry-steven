@@ -83,7 +83,7 @@ export class SoundManager {
                     return;
                 }
 
-                if (!this.currentSFX && Math.random() < 0.01) {
+                if (!this.currentSFX && Math.random() < 0.1) {
                     this.currentSFX = true;
 
                     const s = await this.playSample(
