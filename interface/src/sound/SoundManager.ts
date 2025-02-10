@@ -67,14 +67,14 @@ export class SoundManager {
     }
 
     public ending() {
-        this.playSample("/voice/scream_1.wav");
-        this.playSample("/voice/laugh.wav");
+        this.playSample("/voice/scream_1.wav", 0.4);
+        this.playSample("/voice/laugh.wav", 0.4);
     }
 
     async manageMusic() {
-        const start = await this.playSample("/music/start.wav", 0.2);
+        const start = await this.playSample("/music/start.wav", 0.35);
         start.addEventListener("ended", async () => {
-            const loop = await this.playSample("/music/loop.wav", 0.2, true);
+            const loop = await this.playSample("/music/loop.wav", 0.35, true);
 
             const interval = setInterval(async () => {
                 if (GameState.timeLeft < 0) {
